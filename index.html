@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>  
+	<title>QR Code Asset Inventory</title>
+	<body>
+
+		<h1>Add a new value to DB and display QR code, fill out both fields</h1>
+		<form action="qrcodes_add.php" method="post">
+			Device Name: <input type="text" name="device_name"><br>
+			<!--Device Details: <input type="text" name="device_details"><br>-->
+			Device Details: <br><textarea class="FormElement" name="device details" id="device_details" cols="100" rows="20"></textarea>
+			<br>
+			<input type="submit" value="add new value">
+		</form><br><br><br>
+		<h1>Search for a previously added device, fill out 0, 1, 2, or 3 fields (empty values will return all)</h1>
+		<form action="qrcodes_search.php" method="post">
+			Device Name (partial match): <input type="text" name="device_name"><br>
+			Device Details (partial match): <input type="text" name="device_details"><br>
+			Device ID (exact match): <input type="text" name="device_id"><br>
+			<br>
+			<input type="submit" value="search for value">
+		</form>
+
+	</body>
+</html>
+

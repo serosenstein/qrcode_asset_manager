@@ -1,0 +1,16 @@
+<?php
+#mysql server name
+$servername = "mysql.local.domain";
+#db username
+$username = "qrcode";
+#DB password
+$password = "SECURE_PASSWORD4QRCODE%USER";
+#DB name
+$dbname = "qrcodes";
+#port DB is listening on
+$port = "3306";
+#Where the images will live on mysql box that get loaded into DB
+$filePath = '/var/lib/mysql-files';
+#Path on this box that is shared to /var/lib/mysql-files (or other secure-file-priv directory on mysql
+$sharePath = '/shared/storage/qrcodes';
+?>
