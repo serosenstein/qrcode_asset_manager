@@ -1,5 +1,6 @@
-![Add new device](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screen_after_add.png "Add new device")
-
+![Add new device](https://github.com/serosenstein/qrcode_asset_manager/raw/main/add_new_device.png "Add new device")
+![Screen After newly added device](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screen_after_add.png "screen after newly added device")
+![search all](https://github.com/serosenstein/qrcode_asset_manager/raw/main/search_all.png "search all")
 #To create an empty table called qrcodes (we are assuming this is in a DB also called qrcodes):
 CREATE TABLE `qrcodes` (
   `device_id` bigint unsigned NOT NULL AUTO_INCREMENT,
