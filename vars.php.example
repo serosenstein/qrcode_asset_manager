@@ -13,4 +13,6 @@ $port = "3306";
 $filePath = '/var/lib/mysql-files';
 #Path on this box that is shared to /var/lib/mysql-files (or other secure-file-priv directory on mysql
 $sharePath = '/shared/storage/qrcodes';
+#Email address you want to send/draft emails to
+$email = "user@domain.com";
 ?>

@@ -13,9 +13,8 @@ if (isset($_POST["device_name"]))
 if (isset($_POST["device_details"]))
 {
 	$device_details= $_POST["device_details"];
-	$to_encode = "mailto:serosenstein@gmail.com?subject=INFO%20$device_name&body=$device_details";
 	$fileName = "$filePath/$device_name.png";
-	$mailto = "\"mailto:serosenstein@gmail.com?subject=INFO%20$device_name&body=";
+	$mailto = "\"mailto:$email?subject=INFO%20$device_name&body=";
 	$cmd = "$mailto%20$device_name%0A$device_details";
 	$space_cmd = str_replace(' ','%20', $cmd);
 	$newline_cmd = str_replace('\n','%0A',$space_cmd);
