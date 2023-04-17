@@ -1,3 +1,5 @@
+![Screenshot](screen_after_add.png)
+
 #To create an empty table called qrcodes (we are assuming this is in a DB also called qrcodes):
 CREATE TABLE `qrcodes` (
   `device_id` bigint unsigned NOT NULL AUTO_INCREMENT,
@@ -10,7 +12,7 @@ CREATE TABLE `qrcodes` (
 #Give qrcodes user grants from any host
 GRANT ALL PRIVILEGES ON `qrcodes`.* TO `qrcodes`@`%` WITH GRANT OPTION;
 GRANT FILE ON *.* TO `qrcodes`@`%`;
-
+![Alt text](add_new_device.png?raw=true "Add new Device")
 #To see all your DB transactions:
 select * from qrcodes;
 
