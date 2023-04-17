@@ -10,7 +10,9 @@ CREATE TABLE `qrcodes` (
   PRIMARY KEY (`device_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
-#Give qrcodes user grants from any host
+#Give qrcodes user grants from any host:
+
+
 GRANT ALL PRIVILEGES ON `qrcodes`.* TO `qrcodes`@`%` WITH GRANT OPTION;
 GRANT FILE ON *.* TO `qrcodes`@`%`;
 
@@ -18,12 +20,22 @@ GRANT FILE ON *.* TO `qrcodes`@`%`;
 select * from qrcodes;
 
 #To clear your DB for all assets (assuming DB name is "qrcodes") and reset increment count to 0
+
+
 ######### (*NOTE* THIS WILL WIPE YOUR DB, USE WITH CAUTION) ###################
+
+
 DELETE FROM qrcodes WHERE 1=1;
+
 ALTER TABLE qrcodes MODIFY COLUMN device_id bigint(10) UNSIGNED;
+
 COMMIT;
+
 ALTER TABLE qrcodes MODIFY COLUMN device_id bigint(10) UNSIGNED AUTO_INCREMENT;
+
 COMMIT;
+
+
 # Be sure to clear all of the previously generated .pngs on the share!
 
 * If you're getting an error about QR codes being NULL *
