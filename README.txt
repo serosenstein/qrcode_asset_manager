@@ -1,4 +1,4 @@
-![Screenshot](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screen_after_add.png)
+![Screenshot](screen_after_add.png)
 
 #To create an empty table called qrcodes (we are assuming this is in a DB also called qrcodes):
 CREATE TABLE `qrcodes` (
