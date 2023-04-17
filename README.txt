@@ -10,7 +10,7 @@ CREATE TABLE `qrcodes` (
 #Give qrcodes user grants from any host
 GRANT ALL PRIVILEGES ON `qrcodes`.* TO `qrcodes`@`%` WITH GRANT OPTION;
 GRANT FILE ON *.* TO `qrcodes`@`%`;
-
+![Alt text](add_new_device.png?raw=true "Add new Device")
 #To see all your DB transactions:
 select * from qrcodes;
 
