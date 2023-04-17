@@ -48,7 +48,8 @@ Be sure to clear all of the previously generated .pngs on the share if you're wi
 1) Make sure secure-file-priv=/var/lib/mysql-files is set in your my.cnf (requires DB bounce)
 1a) SHOW VARIABLES LIKE "secure_file_priv"; -- this can be used to verify it's set properly and see what the value is, maybe also need to look at mysql "insecure mode";
 2) make sure you have qrencode installed and it's in the users path that your webserver is running as
-3) Tested on Rocky Linux with PHP and lighttpd and qrencode
+3) Tested on Rocky Linux with PHP and lighttpd and qrencode:
+
 	php-7.2.24-1.module+el8.4.0+413+c9202dda.x86_64
 	php-pdo-7.2.24-1.module+el8.4.0+413+c9202dda.x86_64
 	php-json-7.2.24-1.module+el8.4.0+413+c9202dda.x86_64
