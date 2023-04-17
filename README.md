@@ -1,6 +1,13 @@
 ![Add new device](https://github.com/serosenstein/qrcode_asset_manager/raw/main/add_new_device.png "Add new device")
 ![Screen After newly added device](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screen_after_add.png "screen after newly added device")
 ![search all](https://github.com/serosenstein/qrcode_asset_manager/raw/main/search_all.png "search all")
+
+#Pre Reqs:
+- webserver with php configured
+- qrencode installed in $PATH of web server user
+- A mysql DB server that is allowing remote connections 
+- A share beween /var/lib/mysql-files/ on mysql box to something on web server box
+- Change the vars.php.example to vars.php and change the parameters to fit your env 
 #To create an empty table called qrcodes (we are assuming this is in a DB also called qrcodes):
 CREATE TABLE `qrcodes` (
   `device_id` bigint unsigned NOT NULL AUTO_INCREMENT,
