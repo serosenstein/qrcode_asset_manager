@@ -19,7 +19,6 @@ CREATE TABLE `qrcodes` (
 # Give qrcodes user grants from any host:
 
 GRANT ALL PRIVILEGES ON `qrcodes`.* TO `qrcodes`@`%` WITH GRANT OPTION;
-GRANT FILE ON *.* TO `qrcodes`@`%`;
 
 #To see all your DB transactions:
 select * from qrcodes;
