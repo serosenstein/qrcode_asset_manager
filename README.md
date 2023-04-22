@@ -60,3 +60,6 @@ COMMIT;
 	lighttpd-filesystem-1.4.67-1.el8.noarch
 	lighttpd-mod_openssl-1.4.67-1.el8.x86_64
 	lighttpd-mod_vhostdb_ldap-1.4.67-1.el8.x86_64
+
+
+##### Big thanks to the FPDF project (http://www.fpdf.org/) for the label printing capability, check out their project if you're unfamiliar! #####
