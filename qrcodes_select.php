@@ -1,20 +1,20 @@
 <?php
 include 'vars.php';
-#print_r($_POST);
 $device_array = $_POST["device_id"];
 $device_array_length = sizeof($device_array);
-#echo "device_array is $device_array_length length";
 if (isset($_POST['update_button'])) {
-   echo "you want to update this\n";
+   echo "<h1>Update Menu</h1>\n";
 	if ($device_array_length == "0") {
 		echo "<br><h1>ERROR: you didn't select a radio button to update</h1>\n";
+		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 	}
    $action = "update";
 } else if (isset($_POST['delete_button'])) {
-   echo "you want to delete this\n";
+   echo "</h1>Delete Menu</h1>\n";
 	if ($device_array_length == "0") {
 		echo "<br><h1>ERROR: you didn't select a radio button to delete</h1>\n";
+		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 	}
    $action = "delete";
@@ -24,16 +24,11 @@ if (isset($_POST['update_button'])) {
 }
 $device_commas="";
 for($i=0;$i<count($device_array);$i++){
-       #echo implode(", ",$device_array);  
-       #array_push($device_array, array_shift($device_array));
 	$device_commas .= "'$device_array[$i]',";
      }
 $id_clause = rtrim($device_commas, ',');
 $id_clause = "($id_clause);";
 $CLAUSE = "select * from qrcodes where device_id in $id_clause";
-
-echo "$id_clause";
-echo "$CLAUSE";
 
 if (isset($_POST["device_id"]))
 {
@@ -55,7 +50,6 @@ try {
   // use exec() because no results are returned
   $result = $conn->query($CLAUSE);
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                #echo "id: " . $row["device_id"]. " - Name: " . $row["device_name"]. " " . $row["device_details"]. "<br>";
                 $sql_device_id = $row["device_id"];
                 $sql_device_name = $row["device_name"];
                 $sql_device_details = $row["device_details"];
@@ -65,19 +59,14 @@ try {
 	 
 		if ($action == "delete") {
 	  		echo "<form method=\"post\" action=\"qrcodes_delete.php\" id=\"SubmitForm\">\n";
-                	echo "<input name=\"device_id\" value=$sql_device_id readonly>\n";
-			echo "Device Name: <input type=\"text\" name=\"device_name\" value=$sql_device_name readonly><br>\n";
+                	echo "Device ID (immutable): \"<input name=\"device_id\" value=$sql_device_id readonly>\n";
+			echo "<br>Device Name: <input type=\"text\" name=\"device_name\" value=$sql_device_name readonly><br>\n";
                         echo "Device Details: <br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" readonly>$sql_device_details</textarea>\n";
-                	#echo "<input name=\"device_id\" value=$sql_device_id readonly>\n";
-			#echo "<input name=\"device_name\" value=$sql_device_name readonly>\n";
-			#echo "<input name=\"device_details\" value=$sql_device_name readonly>\n";
 		} else if ($action = "update") {
 	  		echo "<form method=\"post\" action=\"qrcodes_update.php\" id=\"SubmitForm\">\n";
-                	echo "<input name=\"device_id\" value=$sql_device_id readonly>\n";
-			echo "Device Name: <input type=\"text\" name=\"device_name\" value=$sql_device_name><br>\n";
+                	echo "Device ID (immutable): <input name=\"device_id\" value=$sql_device_id readonly>\n";
+			echo "<br>Device Name: <input type=\"text\" name=\"device_name\" value=$sql_device_name><br>\n";
                         echo "Device Details: <br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" >$sql_device_details</textarea>\n";
-			#echo "<input name=\"device_name\" value=$sql_device_name>\n";
-			#echo "<input name=\"device_details\" value=$sql_device_name>\n";
 		} else {
 			echo "not sure how you got here";
 			exit(1);

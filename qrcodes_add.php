@@ -19,7 +19,6 @@ if (isset($_POST["device_details"]))
 	$space_cmd = str_replace(' ','%20', $cmd);
 	$newline_cmd = str_replace('\n','%0A',$space_cmd);
 	echo "command $cmd\n";
-	#$final_cmd = "echo $newline_cmd\" | qrencode -o $sharePath/$device_name.png";
 	$final_cmd = "echo $newline_cmd\" | qrencode -o - | base64";
 	echo "<br><br>final command: $final_cmd<br><br>";
 	$qr_result = shell_exec("$final_cmd 2>&1");
@@ -60,8 +59,6 @@ try {
                 $new_device_name = $row["device_name"];
                 $new_device_details = $row["device_details"];
                 $new_device_qrcode = $row["qrcode"];
-		#$base_64_image = base64_decode($new_device_qrcode);
-
 		echo "<form method=\"post\" action=\"qrcodes_search.php\" id=\"SubmitForm\">\n";
 		echo "<input type=\"hidden\" name=\"device_id\" value=$new_device_id>\n";
 		echo "<input type=\"hidden\" name=\"device_name\" value=$new_device_name>\n";

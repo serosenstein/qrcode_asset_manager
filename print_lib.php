@@ -135,23 +135,6 @@ class PDF_Label extends FPDF {
     }
 
     // Print a label
-    function Add_Label($text) {
-        $this->_COUNTX++;
-        if ($this->_COUNTX == $this->_X_Number) {
-            // Row full, we start a new one
-            $this->_COUNTX=0;
-            $this->_COUNTY++;
-            if ($this->_COUNTY == $this->_Y_Number) {
-                // End of page reached, we start a new one
-                $this->_COUNTY=0;
-                $this->AddPage();
-            }
-        }
-        $_PosX = $this->_Margin_Left + $this->_COUNTX*($this->_Width+$this->_X_Space) + $this->_Padding;
-        $_PosY = $this->_Margin_Top + $this->_COUNTY*($this->_Height+$this->_Y_Space) + $this->_Padding;
-        $this->SetXY($_PosX, $_PosY);
-        $this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text, 0, 'L');
-    }
     function Add_Label_Pic($img,$text,$justify) {
         $this->_COUNTX++;
         if ($this->_COUNTX == $this->_X_Number) {
@@ -168,19 +151,12 @@ class PDF_Label extends FPDF {
         $_PosX = $this->_Margin_Left + $this->_COUNTX*($this->_Width+$this->_X_Space) + $this->_Padding;
         $_PosY = $this->_Margin_Top + $this->_COUNTY*($this->_Height+$this->_Y_Space) + $this->_Padding;
         $this->SetXY($_PosX, $_PosY);
-	#$this->Image("data:image/png;base64,$img",null,null,$this->_Height,$this->_Line_Length,'PNG');
-        #echo "height: $this->_Height pt: $font-size";
         $imgHeight = $this->_Height - $this->_Line_Height;
-	#echo "justify: $justify";
         if ($img != "") {
         $this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text . $this->Image("data:image/png;base64,$img",$_PosX,$_PosY+1,null,$imgHeight,'PNG'), 0, $justify);
 	} else {
         	$this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text, 0, $justify);
 	}
-	#$this->Image("data:image/png;base64,$img",$_PosX,$_PosY,null,$imgHeight,'PNG');
-	#$this->SetFontSize
-	#$this->_Line_Height = $this->_Get_Height_Chars($pt);
-	#$this->Image("data:image/png;base64,$img",x,y,w,h,'PNG');
     }
 
     function _putcatalog()

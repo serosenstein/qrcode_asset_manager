@@ -1,12 +1,5 @@
 <?php
 include 'vars.php';
-#print_r($_POST);
-#$device_id = $_POST["device_id"];
-#echo "$device_arry is $device_array_length length";
-
-#echo "$id_clause";
-#echo "$CLAUSE";
-
 if (isset($_POST["device_id"]))
 {
 	$device_id = $_POST["device_id"];
@@ -25,7 +18,6 @@ try {
 
   // use exec() because no results are returned
   $result = $conn->query($CLAUSE);
-  #echo $result; 
   echo "Deleted record!\n";
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();

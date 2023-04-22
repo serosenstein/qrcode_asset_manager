@@ -5,13 +5,8 @@ if (isset($_POST["device_id"]))
 {
 	$device_id = $_POST["device_id"];
 	if ($device_id != "" ){
-		#if ($_POST["device_name"] != "" || $_POST["device_details"] != "") {
-		#$CLAUSE .= "device_id = '$device_id' AND ";
-		#} else {
 		$CLAUSE .= "device_id = '$device_id' AND ";
-		#}
 	}
-	#echo "Clause $CLAUSE";
 }
 if (isset($_POST["device_name"]))
 {
@@ -25,7 +20,6 @@ if (isset($_POST["device_name"]))
 if (isset($_POST["device_details"]))
 {
 	$device_details= $_POST["device_details"];
-	#echo "<br><br>\n";
 	$CLAUSE .= " AND device_details like '%$device_details%' ";
  	$CLAUSE_COUNT++;
 }
@@ -58,22 +52,19 @@ try {
   // use exec() because no results are returned
   $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
-	  #echo "\n<br><center><input class=\"noprint\" type=\"button\" value=\"Print Page\" onclick=\"printpage()\" /></center>";
 	  echo "<form method=\"post\" id=\"SubmitForm\">\n";
-	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th>Print</th><th>Delete/Edit Device</th></tr>\n";
+	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th>Generate Label</th><th>Delete/Edit Device</th></tr>\n";
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                #echo "id: " . $row["device_id"]. " - Name: " . $row["device_name"]. " " . $row["device_details"]. "<br>";
                 $new_device_id = $row["device_id"];
                 $new_device_name = $row["device_name"];
                 $new_device_details = $row["device_details"];
                 $new_device_qrcode = $row["qrcode"];
-                #$base_64_image = base64_encode($new_device_qrcode);
 		echo "<tr>\n";
 		echo "<td>\n$new_device_id</td>";
 		echo "<td>\n$new_device_name</td>";
 		echo "<td>\n$new_device_details</td>";
                 echo '<td><img src="data:image/png;base64,'.$new_device_qrcode .'" /></td>';
-		echo "<td><input type=\"checkbox\" name=print_device_id[] value=\"$new_device_id\"> Print</td>";
+		echo "<td><input type=\"checkbox\" name=print_device_id[] value=\"$new_device_id\"> Generate Label</td>";
 		echo "<td><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</td>";
 		echo "</tr>";
   }
@@ -81,6 +72,7 @@ try {
 		echo "<input type=\"submit\" name=\"update_button\" formaction=\"qrcodes_select.php\" value=\"Update\" />";
 		echo "<input type=\"submit\" name=\"delete_button\" formaction=\"qrcodes_select.php\" value=\"Delete\" />\n<br><br>";
 print <<<EOD
+		<h2>Label menu</h2>
 		Template Name: <select class="template" name="template">
 		    <option value="94103">94103</option>
 		    <option value="5160">5160</option>
