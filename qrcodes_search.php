@@ -40,10 +40,13 @@ if ( $device_name == "" && $device_id == "" && $device_details == "" ) {
 	echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 }
 $CLAUSE .= ";";
-echo "<html><body><title>QR Code Asset Search</title>";
-echo "<style>\ntable, th, td {\nborder: 1px solid black;\n}\n@media print {\n.noprint { display: none; }\n}</style>\n";
+echo "<html>\n";
+print <<<EOD2
+EOD2;
+echo "<body><title>QR Code Asset Search</title>";
+
+echo "<style>\ntable, th, td {\nborder: 1px solid black;\n}\n</style>\n";
 echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
-echo "<script>function printpage() {\nwindow.print();}</script>";
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
@@ -64,7 +67,7 @@ try {
 		echo "<td>\n$new_device_name</td>";
 		echo "<td>\n$new_device_details</td>";
                 echo '<td><img src="data:image/png;base64,'.$new_device_qrcode .'" /></td>';
-		echo "<td><input type=\"checkbox\" name=print_device_id[] value=\"$new_device_id\"> Generate Label</td>";
+		echo "<td><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\"> Generate Label</td>";
 		echo "<td><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</td>";
 		echo "</tr>";
   }
@@ -73,6 +76,10 @@ try {
 		echo "<input type=\"submit\" name=\"delete_button\" formaction=\"qrcodes_select.php\" value=\"Delete\" />\n<br><br>";
 print <<<EOD
 		<h2>Label menu</h2>
+	        	
+		<input type="checkbox" id="all">Toggle all on/off
+		<script src="toggle.js"></script>
+		<h3>If no "Generate Label" boxes are selected, all labels will be printed</h3>
 		Template Name: <select class="template" name="template">
 		    <option value="94103">94103</option>
 		    <option value="5160">5160</option>
@@ -85,7 +92,7 @@ print <<<EOD
 		    <option value="3422">3422</option>
 		</select><br>
 EOD;
-		echo "Optional: Number of blank placeholders you want to have at beginning of labels: <input type=\"text\" name=\"skip_number\" placeholder=\"e.g. 4\" value=\"\"><br>\n";
+		echo "Number of blank placeholders you want to have at beginning of labels (left to right, top to bottom), Default is 0: <input type=\"text\" name=\"skip_number\" placeholder=\"Optional, e.g. 4\" value=\"\"><br>\n";
 		echo "<input type=\"submit\" name=\"print\" formaction=\"print_label.php\" value=\"Generate Labels\" />";
 		echo "</form>\n";
 
