@@ -6,7 +6,6 @@
 - webserver with php configured
 - qrencode installed in $PATH of web server user
 - A mysql DB server that is allowing remote connections 
-- A share beween /var/lib/mysql-files/ on mysql box to something on web server box
 - Change the vars.php.example to vars.php and change the parameters to fit your env 
 # To create an empty table called qrcodes (we are assuming this is in a DB also called qrcodes):
 CREATE TABLE `qrcodes` (
@@ -42,13 +41,9 @@ ALTER TABLE qrcodes MODIFY COLUMN device_id bigint(10) UNSIGNED AUTO_INCREMENT;
 COMMIT;
 
 
-Be sure to clear all of the previously generated .pngs on the share if you're wiping the datbase!
-
 # If you're getting an error about QR codes being NULL #
-1) Make sure secure-file-priv=/var/lib/mysql-files is set in your my.cnf (requires DB bounce)
-1a) SHOW VARIABLES LIKE "secure_file_priv"; -- this can be used to verify it's set properly and see what the value is, maybe also need to look at mysql "insecure mode";
-2) make sure you have qrencode installed and it's in the users path that your webserver is running as
-3) Tested on Rocky Linux with PHP and lighttpd and qrencode:
+1) make sure you have qrencode installed and it's in the users path that your webserver is running as
+2) Tested on Rocky Linux with PHP and lighttpd and qrencode:
 
 	php-7.2.24-1.module+el8.4.0+413+c9202dda.x86_64
 	php-pdo-7.2.24-1.module+el8.4.0+413+c9202dda.x86_64
