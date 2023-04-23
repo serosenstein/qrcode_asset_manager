@@ -22,7 +22,7 @@ services:
     links:
       - qrcode_db
     volumes:
-      - /usr/share/nginx/html/qrcode_asset_manager:/usr/src/app
+      - ../:/usr/src/app
       - ./scripts/:/scripts/
     command:
       - /scripts/php_entrypoint.sh
