@@ -3,17 +3,17 @@ require('print_lib.php');
 include 'vars.php';
 $template = $_POST["template"];
 $device_array = $_POST["print_device_id"];
-$device_array_length = sizeof($device_array);
-$device_commas="";
-for($i=0;$i<count($device_array);$i++){
-        $device_commas .= "'$device_array[$i]',";
-     }
-if ($device_array_length == "0") {
-$CLAUSE = "select * from qrcodes where device_id;";
+if (is_array($device_array)) {
+	$device_array_length = sizeof($device_array);
+	$device_commas="";
+	for($i=0;$i<count($device_array);$i++){
+		$device_commas .= "'$device_array[$i]',";
+	     }
+	$id_clause = rtrim($device_commas, ',');
+	$id_clause = "($id_clause);";
+	$CLAUSE = "select * from qrcodes where device_id in $id_clause";
 } else {
-$id_clause = rtrim($device_commas, ',');
-$id_clause = "($id_clause);";
-$CLAUSE = "select * from qrcodes where device_id in $id_clause";
+	$CLAUSE = "select * from qrcodes;";
 }
 
 $template_array = array("5160","5161","5162","5163","5164","8600","L7163","3422","22805","94103");
@@ -45,7 +45,6 @@ $pdf->AddPage();
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
   // use exec() because no results are returned
   $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {

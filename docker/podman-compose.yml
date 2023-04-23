@@ -1,0 +1,27 @@
+services:
+  qrcode_db:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: pwd
+      MARIADB_DATABASE: qrcodes
+      MARIADB_USER: qrcodes
+      MARIADB_PASSWORD: password
+    ports: 
+      - 3306:3306
+    volumes:
+      # persist data files into `datadir` volume managed by docker
+      - /opt/mariadb/:/var/lib/mysql
+      # bind-mount any sql files that should be run while initializing
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+  qrcode_php:
+    image: php:7.4-cli
+    build:
+    ports:
+      - 8080:80
+    links:
+      - qrcode_db
+    volumes:
+      - /usr/share/nginx/html/qrcode_asset_manager:/usr/src/app
+      - ./scripts/:/scripts/
+    command:
+      - /scripts/php_entrypoint.sh
