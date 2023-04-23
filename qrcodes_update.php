@@ -25,7 +25,7 @@ if (isset($_POST["device_details"]))
         $cmd = "$mailto%20$device_name%0A$device_details";
         $space_cmd = str_replace(' ','%20', $cmd);
         $newline_cmd = str_replace('\n','%0A',$space_cmd);
-        $final_cmd = "echo $newline_cmd\" | qrencode -o - | base64";
+        $final_cmd = "echo $newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
         $qr_result = shell_exec("$final_cmd 2>&1");
         echo "\n\n<br><br>\n";
 } else {

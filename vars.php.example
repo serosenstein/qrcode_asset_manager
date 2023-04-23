@@ -15,4 +15,8 @@ $filePath = '/var/lib/mysql-files';
 $sharePath = '/shared/storage/qrcodes';
 #Email address you want to send/draft emails to
 $email = "user@domain.com";
+#Forgeground color for QR code
+$foreground_color = "FF8C00";
+#Backround color for QR code
+$background_color = "052CA3";
 ?>
