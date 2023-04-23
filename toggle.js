@@ -1,7 +1,7 @@
 const all = document.getElementById('all');
 
-all.addEventListener('click', toggle);
 
+all.addEventListener('click', toggle);
 
 function toggle(){
     const isChecked = all.checked;

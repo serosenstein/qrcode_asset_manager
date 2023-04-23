@@ -52,7 +52,6 @@ try {
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-  // use exec() because no results are returned
   $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
 	  echo "<form method=\"post\" id=\"SubmitForm\">\n";
@@ -67,7 +66,7 @@ try {
 		echo "<td>\n$new_device_name</td>";
 		echo "<td>\n$new_device_details</td>";
                 echo '<td><img src="data:image/png;base64,'.$new_device_qrcode .'" /></td>';
-		echo "<td><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\"> Generate Label</td>";
+		echo "<td><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\" > Generate Label</td>";
 		echo "<td><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</td>";
 		echo "</tr>";
   }
