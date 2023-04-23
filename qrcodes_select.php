@@ -59,7 +59,7 @@ try {
 	 
 		if ($action == "delete") {
 	  		echo "<form method=\"post\" action=\"qrcodes_delete.php\" id=\"SubmitForm\">\n";
-                	echo "Device ID (immutable): \"<input name=\"device_id\" value=$sql_device_id readonly>\n";
+                	echo "Device ID: <input name=\"device_id\" value=$sql_device_id readonly>\n";
 			echo "<br>Device Name: <input type=\"text\" name=\"device_name\" value=$sql_device_name readonly><br>\n";
                         echo "Device Details: <br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" readonly>$sql_device_details</textarea>\n";
 		} else if ($action = "update") {

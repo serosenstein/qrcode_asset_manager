@@ -9,7 +9,6 @@ if ($device_id == "" ){
 	exit(1);
 }	
 $CLAUSE = "delete from qrcodes where device_id = \"$device_id\"";
-echo "<br>\nCLAUSE: $CLAUSE\n";
 echo "<html><body><title>QR Code Asset Delete</title>";
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);

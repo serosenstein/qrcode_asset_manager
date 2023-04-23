@@ -4,7 +4,7 @@ include 'vars.php';
 if (isset($_POST["device_name"]))
 {
 	$device_name = $_POST["device_name"];
-	$device_name = preg_replace('/[^a-zA-Z0-9-_\.]/','', $device_name);
+	$device_name = preg_replace('/[^a-zA-Z0-9-_\.]/','_', $device_name);
 	echo "devicename: $device_name\n";
 
 } else {
