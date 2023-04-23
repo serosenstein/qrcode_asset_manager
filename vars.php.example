@@ -1,10 +1,10 @@
 <?php
 #mysql server name
-$servername = "mysql.local.domain";
+$servername = "qrcode_db";
 #db username
-$username = "qrcode";
+$username = "qrcodes";
 #DB password
-$password = "SECURE_PASSWORD4QRCODE%USER";
+$password = "password";
 #DB name
 $dbname = "qrcodes";
 #port DB is listening on
