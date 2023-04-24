@@ -61,7 +61,7 @@ class PDF_Label extends FPDF {
     protected $_Avery_Labels = array(
         '5160' => array('paper-size'=>'letter',    'metric'=>'mm',    'marginLeft'=>1.762,    'marginTop'=>10.7,        'NX'=>3,    'NY'=>10,    'SpaceX'=>3.175,    'SpaceY'=>0,    'width'=>66.675,    'height'=>25.4,        'font-size'=>8),
         '22805' => array('paper-size'=>'letter',    'metric'=>'mm',    'marginLeft'=>18.53,    'marginTop'=>10.7,        'NX'=>4,    'NY'=>6,    'SpaceX'=>7.7,    'SpaceY'=>4.87,    'width'=>37.9,    'height'=>37.9,        'font-size'=>7),
-        '94103' => array('paper-size'=>'letter',    'metric'=>'mm',    'marginLeft'=>15.18,    'marginTop'=>16.32,        'NX'=>6,    'NY'=>8,    'SpaceX'=>6.02,    'SpaceY'=>6.02,    'width'=>25.41,    'height'=>25.41,        'font-size'=>7),
+        '94103' => array('paper-size'=>'letter',    'metric'=>'mm',    'marginLeft'=>15.18,    'marginTop'=>16.32,        'NX'=>6,    'NY'=>8,    'SpaceX'=>6.02,    'SpaceY'=>6.02,    'width'=>25.41,    'height'=>25.41,        'font-size'=>6),
         '5161' => array('paper-size'=>'letter',    'metric'=>'mm',    'marginLeft'=>0.967,    'marginTop'=>10.7,        'NX'=>2,    'NY'=>10,    'SpaceX'=>3.967,    'SpaceY'=>0,    'width'=>101.6,        'height'=>25.4,        'font-size'=>8),
         '5162' => array('paper-size'=>'letter',    'metric'=>'mm',    'marginLeft'=>0.97,        'marginTop'=>20.224,    'NX'=>2,    'NY'=>7,    'SpaceX'=>4.762,    'SpaceY'=>0,    'width'=>100.807,    'height'=>35.72,    'font-size'=>8),
         '5163' => array('paper-size'=>'letter',    'metric'=>'mm',    'marginLeft'=>1.762,    'marginTop'=>10.7,         'NX'=>2,    'NY'=>5,    'SpaceX'=>3.175,    'SpaceY'=>0,    'width'=>101.6,        'height'=>50.8,        'font-size'=>8),
@@ -153,7 +153,7 @@ class PDF_Label extends FPDF {
         $this->SetXY($_PosX, $_PosY);
         $imgHeight = $this->_Height - $this->_Line_Height;
         if ($img != "") {
-        $this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text . $this->Image("data:image/png;base64,$img",$_PosX,$_PosY+1,null,$imgHeight,'PNG'), 0, $justify);
+        $this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text . $this->Image("data:image/png;base64,$img",$_PosX,$_PosY+2,null,$imgHeight,'PNG'), 0, $justify);
 	} else {
         	$this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text, 0, $justify);
 	}

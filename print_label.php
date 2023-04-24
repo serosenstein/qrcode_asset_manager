@@ -61,8 +61,9 @@ try {
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $new_device_name = $row["device_name"];
                 $new_device_qrcode = $row["qrcode"];
+                $short_device_name = substr($new_device_name, 0, 16); 
     		$text = "$base_64_image";;
-    		$pdf->Add_Label_Pic("$new_device_qrcode","$new_device_name","$justify");
+    		$pdf->Add_Label_Pic("$new_device_qrcode","$short_device_name","$justify");
 	}
 		}
 } catch(PDOException $e) {
