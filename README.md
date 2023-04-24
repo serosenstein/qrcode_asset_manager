@@ -8,7 +8,7 @@
 	cd ~/opt
 	git clone https://github.com/serosenstein/qrcode_asset_manager.git
 	cd qrcode_asset_manager;
-	cp vars.php.example vars.php
+	cp vars.json.example vars.json
 	cd docker
 	sudo docker-compose up -d
 	sudo ufw allow 8080/tcp
