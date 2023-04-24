@@ -7,8 +7,14 @@ foreach ($json as $field => $value) {
 if (isset($_POST["device_name"]))
 {
 	$device_name = $_POST["device_name"];
-	$device_name = preg_replace('/[^a-zA-Z0-9-_\.]/','_', $device_name);
-	echo "devicename: $device_name\n";
+	if ($device_name != "") 
+	{
+		$device_name = preg_replace('/[^a-zA-Z0-9-_\.]/','_', $device_name);
+	} else {
+		echo "you didn't specify a device name idiot!\n";
+		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
+		exit(1);
+	}
 
 } else {
 	exit("device name not set");
@@ -16,6 +22,11 @@ if (isset($_POST["device_name"]))
 if (isset($_POST["device_details"]))
 {
 	$device_details= $_POST["device_details"];
+	if ($device_details == "") {
+		echo "device details not set idiot!\n";
+		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
+		exit(1);
+	}
 	$fileName = "$filePath/$device_name.png";
 	$mailto = "\"mailto:$email?subject=INFO%20$device_name&body=";
 	$cmd = "$mailto%20$device_name%0A$device_details";
@@ -27,7 +38,6 @@ if (isset($_POST["device_details"]))
 		exit(1);
 	}
 	$final_cmd = "echo $newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
-	#echo "<br><br>final command: $final_cmd<br><br>";
 	$qr_result = shell_exec("$final_cmd 2>&1");
 	echo "\n\n<br><br>\n";
 } else {
