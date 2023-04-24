@@ -1,4 +1,5 @@
 <?php
+echo "<!DOCTYPE html>\n<html>\n<head>\n";
 $allowedArray=["servername","username","dbname","port","email","foreground_color","background_color","password","foreground_color1"];
 if (!empty($_POST)) {
 	$tempArray = [];
@@ -29,6 +30,7 @@ if (!empty($_POST)) {
 	}
 	
 	file_put_contents('vars.json',json_encode($tempArray, JSON_PRETTY_PRINT));
+	echo "<h2>Settings saved succesfully!</h2>";
 
 
 	#print_r($tempArray);
@@ -45,9 +47,6 @@ foreach ($json as $field => $value) {
 $$field = $value;
 }
 print <<< EOD
-<!DOCTYPE html>
-<html>
-<head>
     <style>
         * {
             font-family: Arial;
@@ -74,7 +73,7 @@ print <<< EOD
     <br>Foreground color: <input name="foreground_color" type="color" value="#$foreground_color"/ required>
     <br>Background color: <input name="background_color" type="color" value="#$background_color"/ required>
 <br>
-  <input type="submit" name="submit"/ value="Update settings">
+  <input type="submit" name="submit" value="Update settings"/>
 </form>
 </body>
 </html>
