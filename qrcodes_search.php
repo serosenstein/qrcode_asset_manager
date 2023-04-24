@@ -37,7 +37,6 @@ if ( $device_name == "" && $device_id == "" && $device_details == "" ) {
 		$device_details = "N/A";
 	}
 	echo "Chosen search critera for<br>\nDevice ID: $device_id<br>\nDevice Name: $device_name<br>\nDevice Details: $device_details";
-	echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 }
 $CLAUSE .= ";";
 echo "<html>\n";
