@@ -1,5 +1,6 @@
 <?php
 echo "<!DOCTYPE html>\n<html>\n<head>\n";
+echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 $allowedArray=["servername","username","dbname","port","email","foreground_color","background_color","password","foreground_color1"];
 if (!empty($_POST)) {
 	$tempArray = [];
@@ -75,6 +76,8 @@ print <<< EOD
 <br>
   <input type="submit" name="submit" value="Update settings"/>
 </form>
+<br><a class="fcc-btn" href="index.html">Back to main page</a><br>
+
 </body>
 </html>
 EOD;
