@@ -151,8 +151,10 @@ class PDF_Label extends FPDF {
         $_PosX = $this->_Margin_Left + $this->_COUNTX*($this->_Width+$this->_X_Space) + $this->_Padding;
         $_PosY = $this->_Margin_Top + $this->_COUNTY*($this->_Height+$this->_Y_Space) + $this->_Padding;
         $this->SetXY($_PosX, $_PosY);
-        $imgHeight = $this->_Height - $this->_Line_Height;
+        #$imgHeight = $this->_Height - $this->_Line_Height - $this->_Padding;
+        $imgHeight = $this->_Height - $this->_Line_Height - 3;
         if ($img != "") {
+        #$this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text . $this->Image("data:image/png;base64,$img",$_PosX,$_PosY+2,null,$imgHeight,'PNG'), 0, $justify);
         $this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text . $this->Image("data:image/png;base64,$img",$_PosX,$_PosY+2,null,$imgHeight,'PNG'), 0, $justify);
 	} else {
         	$this->MultiCell($this->_Width - $this->_Padding, $this->_Line_Height, $text, 0, $justify);
