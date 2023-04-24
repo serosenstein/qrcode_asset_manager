@@ -1,7 +1,6 @@
 <?php
 $allowedArray=["servername","username","dbname","port","email","foreground_color","background_color","password","foreground_color1"];
 if (!empty($_POST)) {
-				#$buffer .= "$key $value";
 	$tempArray = [];
 	foreach($_POST as $key => $value)
 	{
@@ -18,7 +17,7 @@ if (!empty($_POST)) {
 				exit(1);
 			}
 		}
-		foreach ($allowArray as $variableName) {
+		foreach ($allowedArray as $variableName) {
 				if(!isset($variableName)) {
 					echo "$variableName not set<br>";
 					unset($_POST);
