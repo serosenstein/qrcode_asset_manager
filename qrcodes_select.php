@@ -1,5 +1,9 @@
 <?php
-include 'vars.php';
+$str = file_get_contents('vars.json');
+$json = json_decode($str, true);
+foreach ($json as $field => $value) {
+	$$field = $value;
+}
 $device_array = $_POST["device_id"];
 $device_array_length = sizeof($device_array);
 if (isset($_POST['update_button'])) {

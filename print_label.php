@@ -1,6 +1,10 @@
 <?php
 require('print_lib.php');
-include 'vars.php';
+$str = file_get_contents('vars.json');
+$json = json_decode($str, true);
+foreach ($json as $field => $value) {
+	$$field = $value;
+}
 $template = $_POST["template"];
 $device_array = $_POST["print_device_id"];
 if (is_array($device_array)) {

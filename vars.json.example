@@ -1,0 +1,10 @@
+{
+    "servername": "qrcode_db",
+    "username": "qrcodes",
+    "password": "password",
+    "dbname": "qrcodes",
+    "port": "3306",
+    "email": "user@domain.com",
+    "foreground_color": "0000ff",
+    "background_color": "172968"
+}

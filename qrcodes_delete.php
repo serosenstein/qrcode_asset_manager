@@ -1,5 +1,10 @@
 <?php
-include 'vars.php';
+$str = file_get_contents('vars.json');
+$json = json_decode($str, true);
+foreach ($json as $field => $value) {
+$$field = $value;
+}
+
 if (isset($_POST["device_id"]))
 {
 	$device_id = $_POST["device_id"];
