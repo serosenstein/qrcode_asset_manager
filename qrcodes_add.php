@@ -11,7 +11,7 @@ if (isset($_POST["device_name"]))
 	{
 		$device_name = preg_replace('/[^a-zA-Z0-9-_\.]/','_', $device_name);
 	} else {
-		echo "you didn't specify a device name idiot!\n";
+		echo "ERROR: ID10T: you didn't specify a device name!\n";
 		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 	}
@@ -23,7 +23,7 @@ if (isset($_POST["device_details"]))
 {
 	$device_details= $_POST["device_details"];
 	if ($device_details == "") {
-		echo "device details not set idiot!\n";
+		echo "ERROR: ID10T: device details not!\n";
 		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 	}
