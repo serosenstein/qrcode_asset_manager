@@ -21,9 +21,13 @@ if (isset($_POST["device_details"]))
 	$cmd = "$mailto%20$device_name%0A$device_details";
 	$space_cmd = str_replace(' ','%20', $cmd);
 	$newline_cmd = str_replace('\n','%0A',$space_cmd);
-	echo "command $cmd\n";
+	$strLength = strlen($newline_cmd);
+	if ($strLength > 4269) {
+		echo "your length is $strLength, max lenght allowed is 4269";
+		exit(1);
+	}
 	$final_cmd = "echo $newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
-	echo "<br><br>final command: $final_cmd<br><br>";
+	#echo "<br><br>final command: $final_cmd<br><br>";
 	$qr_result = shell_exec("$final_cmd 2>&1");
 	echo "\n\n<br><br>\n";
 } else {
@@ -44,6 +48,7 @@ try {
   echo "New record created successfully";
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
+  exit(1);
 }
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
