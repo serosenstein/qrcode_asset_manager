@@ -24,19 +24,19 @@ if (isset($_POST["device_details"]))
  	$CLAUSE_COUNT++;
 }
 if ( $device_name == "" && $device_id == "" && $device_details == "" ) {
-	echo "Displaying results for all";
+	echo "Display search results for all";
 	$CLAUSE = "select * from qrcodes";
 } else {
 	if ($device_name == "") {
-		$device_name = "NULL";
+		$device_name = "N/A";
 	}
 	if ( $device_id == "" ) {
-		$device_id = "NULL";
+		$device_id = "N/A";
 	}
 	if ( $device_details == "" ) {
-		$device_details = "NULL";
+		$device_details = "N/A";
 	}
-	echo "Display Results for<br>\nDevice ID: $device_id<br>\nDevice Name: $device_name<br>\nDevice Details: $device_details";
+	echo "Chosen search critera for<br>\nDevice ID: $device_id<br>\nDevice Name: $device_name<br>\nDevice Details: $device_details";
 	echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 }
 $CLAUSE .= ";";
