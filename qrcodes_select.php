@@ -5,7 +5,13 @@ foreach ($json as $field => $value) {
 	$$field = $value;
 }
 $device_array = $_POST["device_id"];
-$device_array_length = sizeof($device_array);
+if (is_array($device_array)) {
+	$device_array_length = sizeof($device_array);
+} else {
+		echo "<br><h1>ERROR: you didn't select a radio button to update or delete</h1>\n";
+		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
+		exit(1);
+}
 if (isset($_POST['update_button'])) {
    echo "<h1>Update Menu</h1>\n";
 	if ($device_array_length == "0") {

@@ -19,7 +19,7 @@
 		<form action="qrcodes_add.php" method="post">
 			Device Name: <input type="text" name="device_name" placeholder="Device name here"><br>
 			<!--Device Details: <input type="text" name="device_details"><br>-->
-			Device Details: <br><textarea class="FormElement" name="device details" id="device_details" cols="100" rows="20" maxlength="255" onkeyup="textCounter(this,'counter',255);" placeholder="Device Details here"></textarea>
+			Device Details: <br><textarea class="FormElement" name="device details" id="device_details" cols="100" rows="20" minlength="2" maxlength="255" onkeyup="textCounter(this,'counter',255);" placeholder="Device Details here"></textarea>
                         <br>Chracters remaining (out of 255):<input disabled  maxlength="255" size="1" value="0" id="counter">
 			<br>
 			<input type="submit" value="add new value">

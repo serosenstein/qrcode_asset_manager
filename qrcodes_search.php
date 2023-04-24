@@ -57,7 +57,7 @@ try {
 
   $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
-	  echo "<form target=\"_blank\" method=\"post\" id=\"SubmitForm\">\n";
+	  echo "<form method=\"post\" id=\"SubmitForm\">\n";
 	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th>Generate Label</th><th>Delete/Edit Device</th></tr>\n";
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $new_device_id = $row["device_id"];
