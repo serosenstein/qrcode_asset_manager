@@ -76,6 +76,7 @@ print <<< EOD
 <br>
   <input type="submit" name="submit" value="Update settings"/>
 </form>
+</h1>
 <br><a class="fcc-btn" href="index.html">Back to main page</a><br>
 
 </body>
