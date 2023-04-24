@@ -2,6 +2,18 @@
 ![Screen After newly added device](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screen_after_add.png "screen after newly added device")
 ![search all](https://github.com/serosenstein/qrcode_asset_manager/raw/main/search_all.png "search all")
 
+# Docker/podman install (used ubuntu server as test): #
+sudo apt-get install docker docker-compose git
+mkdir ~/opt
+cd ~/opt
+git clone https://github.com/serosenstein/qrcode_asset_manager.git
+cd qrcode_asset_manager;
+cp vars.php.example vars.php
+cd docker
+sudo docker-compose up -d
+sudo ufw allow 8080/tcp
+
+
 #Pre Reqs:
 - webserver with php configured
 - qrencode installed in $PATH of web server user
