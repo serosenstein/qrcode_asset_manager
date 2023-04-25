@@ -59,7 +59,9 @@ echo "<link rel=\"stylesheet\" href=\"style.php\" media=\"screen\">\n";
 print <<<EOD2
 EOD2;
 echo "<body><title>QR Code Asset Search</title>";
+print <<< EOD3
 
+EOD3;
 echo "<style>\ntable, th, td {\nborder: 1px solid black;\n}\n</style>\n";
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
@@ -93,6 +95,7 @@ print <<<EOD
 			     function showhide(id) {
        				var e = document.getElementById(id);
        				e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+                                e.scrollIntoView();
      				}
 		</script>	
 		<br>
