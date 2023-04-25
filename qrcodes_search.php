@@ -86,12 +86,22 @@ try {
 		echo '</div>';
   }
 	  	echo "</table>\n";
-		echo "<input type=\"submit\" class=\"button\" name=\"update_button\" formaction=\"qrcodes_select.php\" value=\"Update\" /><br>";
-		echo "<input type=\"submit\" class=\"button\" name=\"delete_button\" formaction=\"qrcodes_select.php\" value=\"Delete\" />\n<br><br>";
+		echo "<input type=\"submit\" class=\"button\" name=\"update_button\" formaction=\"qrcodes_select.php\" value=\"Update\" />";
+		echo "   <input type=\"submit\" class=\"button\" name=\"delete_button\" formaction=\"qrcodes_select.php\" value=\"Delete\" />\n<br><br>";
 print <<<EOD
-		<h2>Label menu</h2>
+		<script>
+			     function showhide(id) {
+       				var e = document.getElementById(id);
+       				e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+     				}
+		</script>	
+		<br>
+		<form action="javascript:showhide('labelmenu')">
+		</form>
+		<br>
+		<input type="submit" onclick="javascript:showhide('labelmenu')" value="Display Label Menu" />
 	        	
-		<div class="section">
+		<div class="section" id="labelmenu" style="display:none;">
 		<input type="checkbox" id="all">Toggle all on/off
 		<script src="toggle.js"></script>
 		<h3>If no "Generate Label" boxes are selected, all labels will be printed</h3>
