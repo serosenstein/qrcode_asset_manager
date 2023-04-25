@@ -55,9 +55,6 @@ if (isset($_POST["device_id"]))
 		exit(1);
 	}
 }
-echo "<html><body><title>QR Code Asset Search</title>";
-echo "<style>\ntable, th, td {\nborder: 1px solid black;\n}\n@media print {\n.noprint { display: none; }\n}</style>\n";
-echo "<script>function printpage() {\nwindow.print();}</script>";
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
@@ -89,9 +86,9 @@ try {
 		}
 
 		if ($action == "delete") {
-                	echo "<br><br><button type=\"submit\" action=\"qrcode_delete.php\">Yes, I'm sure I want to delete this record!</button>\n";
+                	echo "<br><br><button type=\"submit\" class=\"button\" action=\"qrcode_delete.php\">Yes, I'm sure I want to delete this record!</button>\n";
 		} else if ($action = "update") {
-                	echo "<br><button type=\"submit\" action=\"qrcode_update\">Update!</button>\n";
+                	echo "<br><button type=\"submit\" class=\"button\" action=\"qrcode_update\">Update!</button>\n";
 		} else {
 			echo "not sure how you got here";
 			exit(1);
