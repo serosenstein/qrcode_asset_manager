@@ -1,11 +1,9 @@
 <!DOCTYPE HTML>
 <html>  
 	<title>QR Code Asset Inventory</title>
-	<body>
 	<link rel="stylesheet" href="style.php" media="screen">
 	<head>
 			<link rel="stylesheet" href="style.php" media="screen">
-	</head>
 			<ul>
 				  <li><a href="index.html">Home</a></li>
 				    <li><a href="config.php">Settings</a></li>
@@ -23,7 +21,10 @@
 		 }
 		}
 	</script>
-	<center>
+	</head>
+	<body>
+	<div id="wrapper">
+		<div id="float-left">
 		<h1>Add a new value to DB and display QR code, fill out both fields</h1>
 		<form action="qrcodes_add.php" method="post">
 			Device Name<br><input type="text" name="device_name" placeholder="Device name here"><br>
@@ -32,7 +33,9 @@
                         <br>Chracters remaining (out of 255):<input disabled  maxlength="255" size="1" value="0" id="counter">
 			<br>
 			<input type="submit" class="button" value="Add new value">
-		</form><br><br><br>
+		</form>
+		</div>
+		<div id="float-right">
 		<div class="section">
 		<h1>Search for a previously added device, fill out 0, 1, 2, or 3 fields (empty values will return all)</h1>
 		<form action="qrcodes_search.php" method="post">
@@ -40,10 +43,10 @@
 			Device Details (partial match)<br><input type="text" name="device_details"><br>
 			Device ID (exact match)<br><input type="text" name="device_id"><br>
 			<br>
-			<input type="submit" class="button" value="Search for value">
+			<input type="submit" class="button" value="Search">
 		</form>
 		</div>
-	</center>
+		</div>
 	</body>
 </html>
 

@@ -1,5 +1,6 @@
 <?php
 /*** set the content type header ***/
+
 /*** Without this header, it wont work ***/
 header("Content-type: text/css");
 
@@ -74,7 +75,7 @@ li a:hover {
 }
 
 input[type=text], select {
-  width: 10%;
+  width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -84,7 +85,7 @@ input[type=text], select {
 }
 
 input[type=submit] {
-  width: 10%;
+  width: 30%;
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -106,6 +107,7 @@ input[type=submit]:hover {
 
 body {
 background-color: white;
+text-align:center;
 }
 
 .FormElement {
@@ -133,4 +135,21 @@ background-color: white;
     color: white;
     text-align: center;
     box-sizing: border-box;
+}
+#wrapper {
+    margin:auto;
+    width:100%;
+    height:auto;
+    overflow:auto;
+    text-align:center;
+}
+ 
+#float-left {
+    float:left;
+    width:50%;
+}
+ 
+#float-right {
+    float:right;
+    width:50%;
 }
