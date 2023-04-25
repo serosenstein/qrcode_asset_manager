@@ -7,13 +7,19 @@ header("Content-type: text/css");
 
 $font_family = 'Arial, Helvetica, sans-serif';
 $font_size = '0.7em';
-$border = '1px solid blue';
+$border = '1px solid #FFFFFF';
 ?>
 
 table {
 margin: 8px;
+border-color: #FFFFFF;
 }
-
+table th {
+border-color: #FFFFFF;
+}
+table tr {
+border-color: #FFFFFF;
+}
 th {
 font-family: <?=$font_family?>;
 font-size: <?=$font_size?>;
@@ -21,13 +27,15 @@ background: #666;
 color: #FFF;
 padding: 2px 6px;
 border-collapse: separate;
-border: <?=$border?> #000;
+border: <?=$border?> #FFFFFF;
+border-color: #FFFFFF;
 }
 
 td {
 font-family: <?=$font_family?>;
 font-size: <?=$font_size?>;
-border: <?=$border?> #DDD;
+border: <?=$border?> #FFFFFF;
+border-color: #FFFFFF;
 }
 
 .button {
@@ -106,8 +114,9 @@ input[type=submit]:hover {
 }
 
 body {
-background-color: white;
+background-color: black;
 text-align:center;
+color: white;
 }
 
 .FormElement {

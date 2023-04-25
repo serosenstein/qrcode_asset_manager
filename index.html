@@ -25,7 +25,7 @@
 	<body>
 	<div id="wrapper">
 		<div id="float-left">
-		<h1>Add a new value to DB and display QR code, fill out both fields</h1>
+			<h2>Add a new value to DB and display QR codes<br>Both fields required</h2>
 		<form action="qrcodes_add.php" method="post">
 			Device Name<br><input type="text" name="device_name" placeholder="Device name here"><br>
 			<!--Device Details: <input type="text" name="device_details"><br>-->
@@ -37,13 +37,14 @@
 		</div>
 		<div id="float-right">
 		<div class="section">
-		<h1>Search for a previously added device, fill out 0, 1, 2, or 3 fields (empty values will return all)</h1>
+			<h2>Search for a previously added device<br>(empty values will return all)</h2>
 		<form action="qrcodes_search.php" method="post">
 			Device Name (partial match)<br><input type="text" name="device_name"><br>
 			Device Details (partial match)<br><input type="text" name="device_details"><br>
 			Device ID (exact match)<br><input type="text" name="device_id"><br>
 			<br>
 			<input type="submit" class="button" value="Search">
+			<br><br><br>
 		</form>
 		</div>
 		</div>
