@@ -10,16 +10,6 @@ $font_size = '0.7em';
 $border = '1px solid #FFFFFF';
 ?>
 
-table {
-margin: 8px;
-border-color: #FFFFFF;
-}
-table th {
-border-color: #FFFFFF;
-}
-table tr {
-border-color: #FFFFFF;
-}
 th {
 font-family: <?=$font_family?>;
 font-size: <?=$font_size?>;
@@ -27,8 +17,8 @@ background: #666;
 color: #FFF;
 padding: 2px 6px;
 border-collapse: separate;
-border: <?=$border?> #FFFFFF;
-border-color: #FFFFFF;
+border-color: white;
+border: white;
 }
 
 td {
@@ -36,6 +26,7 @@ font-family: <?=$font_family?>;
 font-size: <?=$font_size?>;
 border: <?=$border?> #FFFFFF;
 border-color: #FFFFFF;
+border: white;
 }
 
 .button {
@@ -161,4 +152,7 @@ color: white;
 #float-right {
     float:right;
     width:50%;
+}
+table, th, td {
+  border: 1px solid white;
 }

@@ -58,11 +58,8 @@ if ( $device_name == "" && $device_id == "" && $device_details == "" ) {
 $CLAUSE .= ";";
 echo "<html>\n";
 echo "<link rel=\"stylesheet\" href=\"style.php\" media=\"screen\">\n";
-print <<< EOD2
-<div id="floater"><a href="#bottom"><img src="arrow_down.png"></img></a></div>
-EOD2;
+echo "<div id=\"floater\"><a href=\"#bottom\"><img src=\"arrow_down.png\"></img></a></div>\n";
 echo "<body><title>QR Code Asset Search</title>";
-echo "<style>\ntable, th, td {\nborder: 1px solid black;\n}\n</style>\n";
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
@@ -99,12 +96,12 @@ print <<<EOD
      				}
 		</script>	
 		<br>
-		<form action="javascript:showhide('labelmenu')">
-		</form>
+		<!--<form action="javascript:showhide('labelmenu')">
+		</form>-->
 		<br>
 		<input type="submit" onclick="javascript:showhide('labelmenu')" value="Display Label Menu" />
 	        	
-		<div class="section" id="labelmenu" style="display:none;">
+		<div class="section" id="labelmenu" style="display:all;"><br>
 		<input type="checkbox" id="all">Toggle all on/off
 		<script src="toggle.js"></script>
 		<h3>If no "Generate Label" boxes are selected, all labels will be printed</h3>
