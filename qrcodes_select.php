@@ -1,4 +1,14 @@
 <?php
+print <<< EOD
+<!DOCTYPE html>
+	<html>
+	<head>
+	<link rel="stylesheet" href="style.php" media="screen">
+	<ul>
+	  <li><a href="index.html">Home</a></li>
+	    <li><a href="config.php">Settings</a></li>
+	    </ul>
+EOD;
 $str = file_get_contents('vars.json');
 $json = json_decode($str, true);
 foreach ($json as $field => $value) {
@@ -9,14 +19,12 @@ if (is_array($device_array)) {
 	$device_array_length = sizeof($device_array);
 } else {
 		echo "<br><h1>ERROR: you didn't select a radio button to update or delete</h1>\n";
-		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 }
 if (isset($_POST['update_button'])) {
    echo "<h1>Update Menu</h1>\n";
 	if ($device_array_length == "0") {
 		echo "<br><h1>ERROR: you didn't select a radio button to update</h1>\n";
-		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 	}
    $action = "update";
@@ -24,7 +32,6 @@ if (isset($_POST['update_button'])) {
    echo "</h1>Delete Menu</h1>\n";
 	if ($device_array_length == "0") {
 		echo "<br><h1>ERROR: you didn't select a radio button to delete</h1>\n";
-		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 	}
    $action = "delete";
@@ -50,7 +57,6 @@ if (isset($_POST["device_id"]))
 }
 echo "<html><body><title>QR Code Asset Search</title>";
 echo "<style>\ntable, th, td {\nborder: 1px solid black;\n}\n@media print {\n.noprint { display: none; }\n}</style>\n";
-echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 echo "<script>function printpage() {\nwindow.print();}</script>";
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
@@ -97,7 +103,6 @@ try {
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
 }
-echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 $conn = null;
 echo "</body></html>\n";
 ?>

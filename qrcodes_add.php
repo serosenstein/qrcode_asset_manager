@@ -1,4 +1,14 @@
 <?php
+print <<< EOD
+<!DOCTYPE html>
+	<html>
+	<head>
+	<link rel="stylesheet" href="style.php" media="screen">
+	<ul>
+	  <li><a href="index.html">Home</a></li>
+	    <li><a href="config.php">Settings</a></li>
+	    </ul>
+EOD;
 $str = file_get_contents('vars.json');
 $json = json_decode($str, true);
 foreach ($json as $field => $value) {
@@ -12,7 +22,6 @@ if (isset($_POST["device_name"]))
 		$device_name = preg_replace('/[^a-zA-Z0-9-_\.]/','_', $device_name);
 	} else {
 		echo "ERROR: ID10T: you didn't specify a device name!\n";
-		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 	}
 
@@ -24,7 +33,6 @@ if (isset($_POST["device_details"]))
 	$device_details= $_POST["device_details"];
 	if ($device_details == "") {
 		echo "ERROR: ID10T: device details not!\n";
-		echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 		exit(1);
 	}
 	$fileName = "$filePath/$device_name.png";
@@ -43,6 +51,7 @@ if (isset($_POST["device_details"]))
 } else {
 	exit("device details not set");
 }
+echo "<link rel=\"stylesheet\" href=\"style.php\" media=\"screen\">\n";
 echo "<html><body>\n";
 echo "Device name: $device_name\n";
 echo "Device details: $device_details\n";

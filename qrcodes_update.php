@@ -1,4 +1,14 @@
 <?php
+print <<< EOD
+<!DOCTYPE html>
+	<html>
+	<head>
+	<link rel="stylesheet" href="style.php" media="screen">
+	<ul>
+	  <li><a href="index.html">Home</a></li>
+	    <li><a href="config.php">Settings</a></li>
+	    </ul>
+EOD;
 $str = file_get_contents('vars.json');
 $json = json_decode($str, true);
 foreach ($json as $field => $value) {
@@ -49,7 +59,6 @@ try {
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
 }
-  echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
 $conn = null;
 echo "</body></html>\n";
 ?>

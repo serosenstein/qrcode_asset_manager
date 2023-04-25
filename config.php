@@ -1,6 +1,14 @@
 <?php
-echo "<!DOCTYPE html>\n<html>\n<head>\n";
-echo  "<br><a class=\"fcc-btn\" href=\"index.html\">Back to main page</a><br>\n";
+print <<< EOD1
+<!DOCTYPE html>
+	<html>
+	<head>
+	<link rel="stylesheet" href="style.php" media="screen">
+	<ul>
+	  <li><a href="index.html">Home</a></li>
+	    <li><a href="config.php">Settings</a></li>
+	    </ul>
+EOD1;
 $allowedArray=["servername","username","dbname","port","email","foreground_color","background_color","password","foreground_color1"];
 if (!empty($_POST)) {
 	$tempArray = [];
@@ -48,22 +56,11 @@ foreach ($json as $field => $value) {
 $$field = $value;
 }
 print <<< EOD
-    <style>
-        * {
-            font-family: Arial;
-            margin: 2px;
-            padding: 10px;
-            text-align: center;
-            position: flex;
-        }
-  
-        body {
-            margin-top: 10%;
-        }
-    </style>
+</style>
 </head>
   
 <body>
+<center>
 <form method="post">
     <h1>Servername: <input name="servername" id="servername" value="$servername" required>
     <br>DB App user: <input name="username" id="username" value="$username" required>
@@ -76,8 +73,8 @@ print <<< EOD
 <br>
   <input type="submit" name="submit" value="Update settings"/>
 </form>
+</center>
 </h1>
-<br><a class="fcc-btn" href="index.html">Back to main page</a><br>
 
 </body>
 </html>
