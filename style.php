@@ -74,7 +74,7 @@ li a:hover {
 }
 
 input[type=text], select {
-  width: 50%;
+  width: 10%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -84,7 +84,7 @@ input[type=text], select {
 }
 
 input[type=submit] {
-  width: 50%;
+  width: 10%;
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
