@@ -3,6 +3,8 @@ print <<< EOD
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="floater.js"></script>
 <link rel="stylesheet" href="style.php" media="screen">
 <ul>
   <li><a href="index.html">Home</a></li>
@@ -56,12 +58,10 @@ if ( $device_name == "" && $device_id == "" && $device_details == "" ) {
 $CLAUSE .= ";";
 echo "<html>\n";
 echo "<link rel=\"stylesheet\" href=\"style.php\" media=\"screen\">\n";
-print <<<EOD2
+print <<< EOD2
+<div id="floater"><a href="#bottom"><img src="arrow_down.png"></img></a></div>
 EOD2;
 echo "<body><title>QR Code Asset Search</title>";
-print <<< EOD3
-
-EOD3;
 echo "<style>\ntable, th, td {\nborder: 1px solid black;\n}\n</style>\n";
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
@@ -122,7 +122,7 @@ print <<<EOD
 EOD;
 		echo "Number of blank placeholders you want to have at beginning of labels (left to right, top to bottom), Default is 0<br><input type=\"text\" name=\"skip_number\" placeholder=\"Optional, e.g. 4\" value=\"\"><br>\n";
 		echo "<input type=\"submit\" name=\"print\" class=\"button\" formaction=\"print_label.php\" value=\"Generate Labels\" />";
-		echo "</form></div>\n";
+		echo "</form></div>\n<div id=\"bottom\"></div>";
 
   } else {
 	echo "<h1>No matches found for your search, please try again</h1>";

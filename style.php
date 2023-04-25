@@ -118,3 +118,19 @@ background-color: white;
 .FormElement:focus {
     outline:none;
 }
+#floater {
+    position: absolute;
+    top: 100px;
+    right: 1px;
+    width: 100px;
+    height: 100px;
+    -webkit-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+    z-index: 1;
+    border-radius: 3px 0 0 3px;
+    padding: 10px;
+    #background-color: #41a6d9;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+}
