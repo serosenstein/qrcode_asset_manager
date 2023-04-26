@@ -1,4 +1,9 @@
 <?php
+$str = file_get_contents('vars.json');
+$json = json_decode($str, true);
+foreach ($json as $field => $value) {
+	$$field = $value;
+}
 print <<< EOD
 <!DOCTYPE html>
 	<html>
@@ -14,10 +19,53 @@ print <<< EOD
 		    </form>
 	    </ul>
 EOD;
-$str = file_get_contents('vars.json');
-$json = json_decode($str, true);
-foreach ($json as $field => $value) {
-	$$field = $value;
+function getNextKey() {
+try {
+	$str = file_get_contents('vars.json');
+	$json = json_decode($str, true);
+	foreach ($json as $field => $value) {
+		$$field = $value;
+	}
+	  $conn1 = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
+	  // set the PDO error mode to exception
+	  $conn1->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+	  $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	  $analyzesql = "ANALYZE TABLE $dbname;";
+	  $nextKeysql = "SELECT auto_increment FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '$dbname';";
+
+	  // use exec() because no results are returned
+	  $conn1->query($analyzesql);
+	    $result1 = $conn1->query($nextKeysql);
+	    if ($result1->rowCount() > 0) {
+		    while($row1 = $result1->fetch(PDO::FETCH_ASSOC)) {
+			 $nextKey = $row1["AUTO_INCREMENT"];
+			 return $nextKey;
+		    }
+	    }
+	} catch(PDOException $e) {
+		  echo $nextKeysql . "<br>" . $e->getMessage();
+		  exit(1);
+	}
+	$conn1 = null;
+}
+if (isset($_POST["qrcode_action"]))
+{
+	$qrcode_action = $_POST["qrcode_action"];
+	if ($qrcode_action == "") 
+	{
+		echo "ERROR: ID10T: you didn't specify a qrcode action!\n";
+		exit(1);
+	}
+	if ($qrcode_action != "email" && $qrcode_action != "URL") {
+	
+		echo "action $qrcode_action<br>\n";
+		echo "ERROR: ID10T: qrcode action is not \"email\" or \"URL\"!\n";
+		exit(1);
+	}
+
+} else {
+	echo "action $qrcode_action<br>\n";
+	exit("qrcode action not set: should be \"email\" or \"URL\"");
 }
 if (isset($_POST["device_name"]))
 {
@@ -40,9 +88,22 @@ if (isset($_POST["device_details"]))
 		echo "ERROR: ID10T: device details not!\n";
 		exit(1);
 	}
-	$fileName = "$filePath/$device_name.png";
-	$mailto = "\"mailto:$email?subject=INFO%20$device_name&body=";
-	$cmd = "$mailto%20$device_name%0A$device_details";
+	if ($qrcode_action == "email") {
+		if ($email == "") {
+			echo "ERROR: ID10T: please set email in settings page";
+			exit(1);
+		}
+		$mailto = "mailto:$email?subject=INFO%20$device_name&body=";
+		$cmd = "$mailto%20$device_name%0A$device_details";
+	} else if ($qrcode_action == "URL") {
+		if ($server_fqdn == "") {
+			echo "ERROR: ID10T: please set Server FQDN in settings page";
+			exit(1);
+		}
+		$nextDeviceId = getNextKey();
+		echo "nextDeviceId: $nextDeviceId";
+		$cmd = "$server_fqdn" . "/qrcodes_search.php?device_id=" . $nextDeviceId;
+	}
 	$space_cmd = str_replace(' ','%20', $cmd);
 	$newline_cmd = str_replace('\n','%0A',$space_cmd);
 	$strLength = strlen($newline_cmd);
@@ -50,7 +111,8 @@ if (isset($_POST["device_details"]))
 		echo "your length is $strLength, max lenght allowed is 4269";
 		exit(1);
 	}
-	$final_cmd = "echo $newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
+	$final_cmd = "echo \"$newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
+	echo $final_cmd;
 	$qr_result = shell_exec("$final_cmd 2>&1");
 	echo "\n\n<br><br>\n";
 } else {
@@ -64,7 +126,7 @@ try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO qrcodes (device_name, device_details, qrcode) VALUES (\"$device_name\", \"$device_details\", \"$qr_result\");";
+  $sql = "INSERT INTO qrcodes (device_name, device_details, qrcode_action, qrcode) VALUES (\"$device_name\", \"$device_details\", \"$qrcode_action\", \"$qr_result\");";
   echo "$sql";
 
   // use exec() because no results are returned
@@ -91,13 +153,13 @@ try {
                 $new_device_name = $row["device_name"];
                 $new_device_details = $row["device_details"];
                 $new_device_qrcode = $row["qrcode"];
+                $new_qrcode_action = $row["qrcode_action"];
 		echo "<form method=\"post\" action=\"qrcodes_search.php\" id=\"SubmitForm\">\n";
 		echo "<input type=\"hidden\" name=\"device_id\" value=$new_device_id>\n";
 		echo "<input type=\"hidden\" name=\"device_name\" value=$new_device_name>\n";
+		echo "<input type=\"hidden\" name=\"qrcode_action\" value=$new_qrcode_action>\n";
 		echo "<button type=\"submit\">Submit</button>\n";
 		 echo "</form>\n";
-		
-
 		echo "<script type=\"text/javascript\">\ndocument.getElementById(\"SubmitForm\").submit();\n</script>\n";
 	
 

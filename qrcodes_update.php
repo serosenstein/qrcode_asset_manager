@@ -40,7 +40,6 @@ if ($device_name == "" ){
 if (isset($_POST["device_details"]))
 {
         $device_details= $_POST["device_details"];
-        $fileName = "$filePath/$device_name.png";
         $mailto = "\"mailto:$email?subject=INFO%20$device_name&body=";
         $cmd = "$mailto%20$device_name%0A$device_details";
         $space_cmd = str_replace(' ','%20', $cmd);

@@ -14,7 +14,7 @@ print <<< EOD1
 	    </form>
 	    </ul>
 EOD1;
-$allowedArray=["servername","username","dbname","port","email","foreground_color","background_color","password","foreground_color1"];
+$allowedArray=["servername","username","dbname","port","email","foreground_color","background_color","password","foreground_color1","server_fqdn"];
 if (!empty($_POST)) {
 	$tempArray = [];
 	foreach($_POST as $key => $value)
@@ -26,10 +26,17 @@ if (!empty($_POST)) {
 			}
 			$tempArray[$key] = $value;
 			if($value == "") {
-				echo "$key is empty\n<br>";
-				unset($_POST);
-				echo "<button onClick=\"window.location.href='config.php';\">Go Back</button>\n";
-				exit(1);
+				if ($key == "server_fqdn") {
+					$serverName = $_SERVER['SERVER_NAME'];
+					$serverPort = $_SERVER['SERVER_PORT'];
+					$value = "http://$serverName:$serverPort";	
+					$tempArray["server_fqdn"] = $value;
+				} else {
+					echo "$key is empty\n<br>";
+					unset($_POST);
+					echo "<button onClick=\"window.location.href='config.php';\">Go Back</button>\n";
+					exit(1);
+				}
 			}
 		}
 		foreach ($allowedArray as $variableName) {
@@ -73,6 +80,7 @@ print <<< EOD
     <br>Database name: <input name="dbname" id="dbname" value="$dbname" required>
     <br>Database port: <input name="port" id="port" value="$port" required>
     <br>Email address: <input name="email" id="email" value="$email" required>
+    <br>Server FQDN: <input name="server_fqdn" id="server_fqdn" value="$server_fqdn" >
     <br>Foreground color: <input name="foreground_color" type="color" value="#$foreground_color"/ required>
     <br>Background color: <input name="background_color" type="color" value="#$background_color"/ required>
 <br>

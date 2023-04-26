@@ -38,6 +38,13 @@ if (isset($_POST["device_id"]))
 		$CLAUSE .= "device_id = '$device_id' AND ";
 	}
 }
+if (isset($_GET["device_id"]))
+{
+	$device_id = $_GET["device_id"];
+	if ($device_id != "" ){
+		$CLAUSE .= "device_id = '$device_id'";
+	}
+}
 if (isset($_POST["device_name"]))
 {
 	$device_name = $_POST["device_name"];
@@ -68,7 +75,7 @@ if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_s
 	}
 	echo "Chosen search critera for<br>\nDevice ID: $device_id<br>\nDevice Name: $device_name<br>\nDevice Details: $device_details";
 }
-$CLAUSE .= ";";
+$CLAUSE .= " order by device_id asc;";
 echo "<html>\n";
 echo "<link rel=\"stylesheet\" href=\"style.php\" media=\"screen\">\n";
 echo "<div id=\"floater\"><a href=\"#bottom\"><img src=\"arrow_down.png\"></img></a></div>\n";
@@ -81,11 +88,12 @@ try {
   $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
 	  echo "<form method=\"post\" id=\"SubmitForm\">\n";
-	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th><input type=\"checkbox\" id=\"all\" checked> Generate Label</th><th>Delete/Edit Device</th></tr>\n";
+	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th><input type=\"checkbox\" id=\"all\" checked> Generate Label</th><th>QR Action</th><th>Delete/Edit Device</th></tr>\n";
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $new_device_id = $row["device_id"];
                 $new_device_name = $row["device_name"];
                 $new_device_details = $row["device_details"];
+                $new_qrcode_action = $row["qrcode_action"];
                 $new_device_qrcode = $row["qrcode"];
 		echo '<tr'.(($c = !$c)?' bgcolor=grey':'').">";
 		echo "<td><center>\n$new_device_id</center></td>";
@@ -93,6 +101,7 @@ try {
 		echo "<td><center>\n" . nl2br($new_device_details) . "</center></td>";
                 echo '<td><center><img src="data:image/png;base64,'.$new_device_qrcode .'" /></center></td>';
 		echo "<td><center><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\" checked> Generate Label</center></td>";
+		echo "<td><center>\n$new_qrcode_action</center></td>";
 		echo "<td><center><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</center></td>";
 		echo "</tr>";
 		echo '</div>';
