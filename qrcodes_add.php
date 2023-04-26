@@ -112,7 +112,6 @@ if (isset($_POST["device_details"]))
 		exit(1);
 	}
 	$final_cmd = "echo \"$newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
-	echo $final_cmd;
 	$qr_result = shell_exec("$final_cmd 2>&1");
 	echo "\n\n<br><br>\n";
 } else {
@@ -120,21 +119,18 @@ if (isset($_POST["device_details"]))
 }
 echo "<link rel=\"stylesheet\" href=\"style.php\" media=\"screen\">\n";
 echo "<html><body>\n";
-echo "Device name: $device_name\n";
-echo "Device details: $device_details\n";
+echo "Device name: $device_name<br>\n";
+echo "Device details: $device_details<br>\n";
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $sql = "INSERT INTO qrcodes (device_name, device_details, qrcode_action, qrcode) VALUES (\"$device_name\", \"$device_details\", \"$qrcode_action\", \"$qr_result\");";
-  echo "$sql";
-
   // use exec() because no results are returned
   $conn->exec($sql);
-  echo "New record created successfully, Redirecting in 10 seconds...";
-  echo ("Location: $server_fqdn/qrcodes_search.php?device_id=$nextDeviceId");
-  sleep(10);
-  header("Location: $server_fqdn/qrcodes_search.php?device_id=$nextDeviceId");
+  echo "<br><br><br><h1>New record created successfully, Redirecting in 10 seconds...</h1>";
+  #header("Location: $server_fqdn/qrcodes_search.php?device_id=$nextDeviceId");
+  header("Refresh:10;url=$server_fqdn/qrcodes_search.php?device_id=$nextDeviceId");
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
   exit(1);
