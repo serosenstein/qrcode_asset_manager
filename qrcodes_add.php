@@ -93,6 +93,7 @@ if (isset($_POST["device_details"]))
 			echo "ERROR: ID10T: please set email in settings page";
 			exit(1);
 		}
+		$nextDeviceId = getNextKey();
 		$mailto = "mailto:$email?subject=INFO%20$device_name&body=";
 		$cmd = "$mailto%20$device_name%0A$device_details";
 	} else if ($qrcode_action == "URL") {
@@ -101,7 +102,6 @@ if (isset($_POST["device_details"]))
 			exit(1);
 		}
 		$nextDeviceId = getNextKey();
-		echo "nextDeviceId: $nextDeviceId";
 		$cmd = "$server_fqdn" . "/qrcodes_search.php?device_id=" . $nextDeviceId;
 	}
 	$space_cmd = str_replace(' ','%20', $cmd);
@@ -131,43 +131,13 @@ try {
 
   // use exec() because no results are returned
   $conn->exec($sql);
-  echo "New record created successfully";
+  echo "New record created successfully, Redirecting in 10 seconds...";
+  echo ("Location: $server_fqdn/qrcodes_search.php?device_id=$nextDeviceId");
+  sleep(10);
+  header("Location: $server_fqdn/qrcodes_search.php?device_id=$nextDeviceId");
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
   exit(1);
-}
-try {
-  $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "SELECT * FROM qrcodes ORDER BY device_id DESC LIMIT 1;";
-  echo "\n$sql\n";
-
-  // use exec() because no results are returned
-  $result = $conn->query($sql);
-  print_r($result);
-  if ($result->rowCount() > 0) {
-	  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-    		echo "id: " . $row["device_id"]. " - Name: " . $row["device_name"]. " " . $row["device_details"]. "<br>";
-                $new_device_id = $row["device_id"];
-                $new_device_name = $row["device_name"];
-                $new_device_details = $row["device_details"];
-                $new_device_qrcode = $row["qrcode"];
-                $new_qrcode_action = $row["qrcode_action"];
-		echo "<form method=\"post\" action=\"qrcodes_search.php\" id=\"SubmitForm\">\n";
-		echo "<input type=\"hidden\" name=\"device_id\" value=$new_device_id>\n";
-		echo "<input type=\"hidden\" name=\"device_name\" value=$new_device_name>\n";
-		echo "<input type=\"hidden\" name=\"qrcode_action\" value=$new_qrcode_action>\n";
-		echo "<button type=\"submit\">Submit</button>\n";
-		 echo "</form>\n";
-		echo "<script type=\"text/javascript\">\ndocument.getElementById(\"SubmitForm\").submit();\n</script>\n";
-	
-
-		
-  }
-  }
-} catch(PDOException $e) {
-  echo $sql . "<br>" . $e->getMessage();
 }
 
 $conn = null;

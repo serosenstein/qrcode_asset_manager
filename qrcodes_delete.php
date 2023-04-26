@@ -37,7 +37,7 @@ try {
 
   // use exec() because no results are returned
   $result = $conn->query($CLAUSE);
-  echo "Deleted record!\n";
+  echo "<h2>Deleted record!</h2>\n";
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
 }
