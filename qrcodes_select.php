@@ -88,7 +88,13 @@ try {
                 $sql_device_details = $row["device_details"];
                 $sql_qrcode_action = $row["qrcode_action"];
 	}
-
+  if (isset($sql_qrcode_action)) {
+	  if ($sql_qrcode_action == "URL") {
+		$url_checked = "checked";
+	  } else if ($sql_qrcode_action == "email") {
+		  $email_checked = "checked";	
+	  }
+  }
   if ($result->rowCount() > 0) {
 	 
 		if ($action == "delete") {
@@ -101,8 +107,8 @@ try {
                 	echo "Device ID (immutable): <input name=\"device_id\" value=$sql_device_id readonly>\n";
 			echo "<br>Device Name: <input type=\"text\" name=\"device_name\" maxlength=\"255\" value=$sql_device_name><br>\n";
 			echo "Device Details<br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" minlength=\"2\" maxlength=\"255\" onkeyup=\"textCounter(this,'counter',255);\" placeholder=\"Device Details\">$sql_device_details</textarea><br>Chracters remaining (out of 255):<input disabled maxlength=\"255\" size=\"1\" value=\"0\" id=\"counter\" style=\"color:white;\">";
-                        echo "<br><br><br>QR Code Action:<br><br>URL: <input type=\"radio\" name=\"qrcode_action\" value=\"URL\" required>";
-	                echo "<br><br>Email: <input type=\"radio\" name=\"qrcode_action\" value=\"email\" required><br><br>";
+                        echo "<br><br><br>QR Code Action:<br><br>URL: <input type=\"radio\" name=\"qrcode_action\" value=\"URL\" required $url_checked>";
+	                echo "<br><br>Email: <input type=\"radio\" name=\"qrcode_action\" value=\"email\" required $email_checked><br><br>";
 		} else {
 			echo "not sure how you got here";
 			exit(1);
