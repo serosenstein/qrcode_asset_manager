@@ -70,9 +70,6 @@ try {
   echo $sql . "<br>" . $e->getMessage();
 }
 
-#$pdf->Output();
-#$pdf->Output($path . $template . "-labels.pdf", 'F');
-#$pdf->Output($template . "-labels.pdf", 'I');
 $pdf->Output('D', $template . "-labels.pdf");
 
 ?>

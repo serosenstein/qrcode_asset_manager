@@ -23,6 +23,7 @@ $json = json_decode($str, true);
 foreach ($json as $field => $value) {
 	$$field = $value;
 }
+$c = "1";
 $CLAUSE = "select * from qrcodes where ";
 if (isset($_POST["quick_search"]))
 {
@@ -30,6 +31,8 @@ if (isset($_POST["quick_search"]))
 	if ($quick_search != "" ){
 		$CLAUSE .= "(device_details LIKE '%$quick_search%') OR (device_name LIKE '%$quick_search%')";
 	}
+} else {
+	$quick_search = "";
 }
 if (isset($_POST["device_id"]))
 {
@@ -45,20 +48,27 @@ if (isset($_GET["device_id"]))
 		$CLAUSE .= "device_id = '$device_id'";
 	}
 }
+if (!isset($_GET["device_id"]) && !isset($_POST["device_id"])) {
+	$device_id = "";
+}
 if (isset($_POST["device_name"]))
 {
 	$device_name = $_POST["device_name"];
 	$device_name = preg_replace('/[^a-zA-Z0-9-_\.]/','', $device_name);
 	$CLAUSE .= " device_name like '%$device_name%' ";
- 	$CLAUSE_COUNT++;
+ 	#$CLAUSE_COUNT++;
 	
 
+} else {
+	$device_name = "";
 }
 if (isset($_POST["device_details"]))
 {
 	$device_details= $_POST["device_details"];
 	$CLAUSE .= " AND device_details like '%$device_details%' ";
- 	$CLAUSE_COUNT++;
+ 	#$CLAUSE_COUNT++;
+} else {
+	$device_details = "";
 }
 if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_search == "") {
 	echo "Display search results for all";
@@ -70,7 +80,7 @@ if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_s
 	if ( $device_id == "" ) {
 		$device_id = "N/A";
 	}
-	if ( $device_details == "" ) {
+	if ( $device_details == "" || !isset($device_details)) {
 		$device_details = "N/A";
 	}
 	echo "Chosen search critera for<br>\nDevice ID: $device_id<br>\nDevice Name: $device_name<br>\nDevice Details: $device_details";
