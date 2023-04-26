@@ -31,7 +31,7 @@ try {
 	  $conn1->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
 	  $conn1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	  $analyzesql = "ANALYZE TABLE $dbname;";
-	  $nextKeysql = "SELECT auto_increment FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '$dbname';";
+	  $nextKeysql = "SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '$dbname';";
 
 	  // use exec() because no results are returned
 	  $conn1->query($analyzesql);
