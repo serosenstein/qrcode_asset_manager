@@ -18,3 +18,12 @@ Array.from(document.querySelectorAll('input:not(#all)')).forEach(element =>{
 function uncheckAll(){
     all.checked = false
 }
+
+function showOrHideDiv() {
+ var v = document.getElementById("labelmenu");
+ if (v.style.display === "none") {
+		  v.style.display = "block";
+	       } else {
+			v.style.display = "none";
+		     }
+}

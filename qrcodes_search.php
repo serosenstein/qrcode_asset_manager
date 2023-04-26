@@ -68,7 +68,7 @@ try {
   $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
 	  echo "<form method=\"post\" id=\"SubmitForm\">\n";
-	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th>Generate Label</th><th>Delete/Edit Device</th></tr>\n";
+	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th><input type=\"checkbox\" id=\"all\"> Generate Label</th><th>Delete/Edit Device</th></tr>\n";
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $new_device_id = $row["device_id"];
                 $new_device_name = $row["device_name"];
@@ -88,21 +88,8 @@ try {
 		echo "<input type=\"submit\" class=\"button\" name=\"update_button\" formaction=\"qrcodes_select.php\" value=\"Update\" />";
 		echo "   <input type=\"submit\" class=\"button\" name=\"delete_button\" formaction=\"qrcodes_select.php\" value=\"Delete\" />\n<br><br>";
 print <<<EOD
-		<script>
-			     function showhide(id) {
-       				var e = document.getElementById(id);
-       				e.style.display = (e.style.display == 'block') ? 'none' : 'block';
-                                e.scrollIntoView();
-     				}
-		</script>	
-		<br>
-		<!--<form action="javascript:showhide('labelmenu')">
-		</form>-->
-		<br>
-		<input type="submit" onclick="javascript:showhide('labelmenu')" value="Display Label Menu" />
-	        	
-		<div class="section" id="labelmenu" style="display:all;"><br>
-		<input type="checkbox" id="all">Toggle all on/off
+		<div class="section" id="labelmenu" style="display:block">
+		<input type="checkbox" id="all">Select all
 		<script src="toggle.js"></script>
 		<h3>If no "Generate Label" boxes are selected, all labels will be printed</h3>
 		Template Name<br><select class="template" name="template">
@@ -116,10 +103,10 @@ print <<<EOD
 		    <option value="L7163">L7163</option>
 		    <option value="3422">3422</option>
 		</select><br>
+		Number of blank placeholders you want to have at beginning of labels (left to right, top to bottom), Default is 0<br><input type="text" name="skip_number" placeholder="Optional, e.g. 4" value=""><br>
+		<input type="submit" name="print" class="button" formaction="print_label.php" value="Generate Labels" />
+		</form></div><div id="bottom"></div>
 EOD;
-		echo "Number of blank placeholders you want to have at beginning of labels (left to right, top to bottom), Default is 0<br><input type=\"text\" name=\"skip_number\" placeholder=\"Optional, e.g. 4\" value=\"\"><br>\n";
-		echo "<input type=\"submit\" name=\"print\" class=\"button\" formaction=\"print_label.php\" value=\"Generate Labels\" />";
-		echo "</form></div>\n<div id=\"bottom\"></div>";
 
   } else {
 	echo "<h1>No matches found for your search, please try again</h1>";
