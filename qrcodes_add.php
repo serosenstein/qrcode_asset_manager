@@ -128,9 +128,12 @@ try {
   $sql = "INSERT INTO qrcodes (device_name, device_details, qrcode_action, qrcode) VALUES (\"$device_name\", \"$device_details\", \"$qrcode_action\", \"$qr_result\");";
   // use exec() because no results are returned
   $conn->exec($sql);
-  echo "<br><br><br><h1>New record created successfully, Redirecting in 10 seconds...</h1>";
-  #header("Location: $server_fqdn/qrcodes_search.php?device_id=$nextDeviceId");
-  header("Refresh:10;url=$server_fqdn/qrcodes_search.php?device_id=$nextDeviceId");
+  echo "<br><br><br><h1>New record created successfully!</h1>";
+  echo "\n<form action=\"qrcodes_search.php\" method=\"post\">";
+  echo "<input type=\"hidden\" name=\"device_name\" value=\"\">\n<input type=\"hidden\" name=\"device_details\" value=\"\">\n";
+  echo "<input type=\"hidden\" name=\"device_id\" value=\"$nextDeviceId\">";
+  echo "\n<input type=\"submit\" class=\"button\" name=\"submit\" value=\"Click Here to see your new device record\"></input></form>";
+
 } catch(PDOException $e) {
   echo $sql . "<br>" . $e->getMessage();
   exit(1);

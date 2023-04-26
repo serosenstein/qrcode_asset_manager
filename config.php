@@ -9,7 +9,7 @@ print <<< EOD1
 	  <li><a href="index.html">Home</a></li>
 	    <li><a href="config.php">Settings</a></li>
 	      <form action="qrcodes_search.php" method="post">
-	        <input type="text" name="quick_search" placeholder="Quick Search..." name="search">
+	        <input type="text" name="quick_search" placeholder="Quick Search..." >
 		  <button type="submit"><i class="fa fa-search"></i></button>
 	    </form>
 	    </ul>
