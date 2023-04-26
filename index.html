@@ -1,12 +1,19 @@
 <!DOCTYPE HTML>
 <html>  
 	<title>QR Code Asset Inventory</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="style.php" media="screen">
 	<head>
 			<link rel="stylesheet" href="style.php" media="screen">
 			<ul>
 				  <li><a href="index.html">Home</a></li>
 				    <li><a href="config.php">Settings</a></li>
+				<div class="search-container">
+				    <form action="qrcodes_search.php" method="post">
+				      <input type="text" name="quick_search" placeholder="Quick Search..." name="search">
+				      <button type="submit"><i class="fa fa-search"></i></button>
+				    </form>
+				  </div>
 			</ul>
 
 	<script>
@@ -37,7 +44,7 @@
 		</div>
 		<div id="float-right">
 		<div class="section">
-			<h2>Search for a previously added device<br>(empty values will return all)</h2>
+			<h2>Advanced Search<br>(empty values will return all)</h2>
 		<form action="qrcodes_search.php" method="post">
 			Device Name (partial match)<br><input type="text" name="device_name"><br>
 			Device Details (partial match)<br><input type="text" name="device_details"><br>

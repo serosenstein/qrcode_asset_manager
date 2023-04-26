@@ -4,11 +4,17 @@ print <<< EOD
 <html>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="floater.js"></script>
 <link rel="stylesheet" href="style.php" media="screen">
 <ul>
   <li><a href="index.html">Home</a></li>
   <li><a href="config.php">Settings</a></li>
+  <form action="qrcodes_search.php" method="post">
+  <input type="text" name="quick_search" placeholder="Quick Search..." name="search">
+  <button type="submit"><i class="fa fa-search"></i></button>
+														                                      </form>
+
 </ul>
 <center>
 EOD;
@@ -18,6 +24,13 @@ foreach ($json as $field => $value) {
 	$$field = $value;
 }
 $CLAUSE = "select * from qrcodes where ";
+if (isset($_POST["quick_search"]))
+{
+	$quick_search = $_POST["quick_search"];
+	if ($quick_search != "" ){
+		$CLAUSE .= "(device_details LIKE '%$quick_search%') OR (device_name LIKE '%$quick_search%')";
+	}
+}
 if (isset($_POST["device_id"]))
 {
 	$device_id = $_POST["device_id"];
@@ -40,7 +53,7 @@ if (isset($_POST["device_details"]))
 	$CLAUSE .= " AND device_details like '%$device_details%' ";
  	$CLAUSE_COUNT++;
 }
-if ( $device_name == "" && $device_id == "" && $device_details == "" ) {
+if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_search == "") {
 	echo "Display search results for all";
 	$CLAUSE = "select * from qrcodes";
 } else {
@@ -68,7 +81,7 @@ try {
   $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
 	  echo "<form method=\"post\" id=\"SubmitForm\">\n";
-	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th><input type=\"checkbox\" id=\"all\"> Generate Label</th><th>Delete/Edit Device</th></tr>\n";
+	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th><input type=\"checkbox\" id=\"all\" checked> Generate Label</th><th>Delete/Edit Device</th></tr>\n";
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $new_device_id = $row["device_id"];
                 $new_device_name = $row["device_name"];
@@ -79,7 +92,7 @@ try {
 		echo "<td><center>\n$new_device_name</center></td>";
 		echo "<td><center>\n" . nl2br($new_device_details) . "</center></td>";
                 echo '<td><center><img src="data:image/png;base64,'.$new_device_qrcode .'" /></center></td>';
-		echo "<td><center><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\" > Generate Label</center></td>";
+		echo "<td><center><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\" checked> Generate Label</center></td>";
 		echo "<td><center><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</center></td>";
 		echo "</tr>";
 		echo '</div>';
@@ -89,7 +102,7 @@ try {
 		echo "   <input type=\"submit\" class=\"button\" name=\"delete_button\" formaction=\"qrcodes_select.php\" value=\"Delete\" />\n<br><br>";
 print <<<EOD
 		<div class="section" id="labelmenu" style="display:block">
-		<input type="checkbox" id="all">Select all
+		<!--<input type="checkbox" id="all">Select all-->
 		<script src="toggle.js"></script>
 		<h3>If no "Generate Label" boxes are selected, all labels will be printed</h3>
 		Template Name<br><select class="template" name="template">

@@ -3,10 +3,18 @@ print <<< EOD
 <!DOCTYPE html>
 	<html>
 	<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="floater.js"></script>
 	<link rel="stylesheet" href="style.php" media="screen">
 	<ul>
 	  <li><a href="index.html">Home</a></li>
 	    <li><a href="config.php">Settings</a></li>
+	      <form action="qrcodes_search.php" method="post">
+	        <input type="text" name="quick_search" placeholder="Quick Search..." name="search">
+		  <button type="submit"><i class="fa fa-search"></i></button>
+		    </form>
+		    </ul>
 	    </ul>
 EOD;
 $str = file_get_contents('vars.json');
