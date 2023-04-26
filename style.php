@@ -139,8 +139,8 @@ color: white;
 #wrapper {
     margin:auto;
     width:100%;
-    height:auto;
     overflow:auto;
+    height:auto;
     text-align:center;
 }
  

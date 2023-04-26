@@ -7,6 +7,18 @@ print <<< EOD
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="floater.js"></script>
 	<link rel="stylesheet" href="style.php" media="screen">
+	        <script>
+        function textCounter(field,field2,maxlimit)
+                {
+                 var countfield = document.getElementById(field2);
+                 if ( field.value.length > maxlimit ) {
+                  field.value = field.value.substring( 0, maxlimit );
+                  return false;
+                 } else {
+                  countfield.value = maxlimit - field.value.length;
+                 }
+                }
+        </script>
 	<ul>
 	  <li><a href="index.html">Home</a></li>
 	    <li><a href="config.php">Settings</a></li>
@@ -87,10 +99,11 @@ try {
 		} else if ($action = "update") {
 	  		echo "<form method=\"post\" action=\"qrcodes_update.php\" id=\"SubmitForm\">\n";
                 	echo "Device ID (immutable): <input name=\"device_id\" value=$sql_device_id readonly>\n";
-			echo "<br>Device Name: <input type=\"text\" name=\"device_name\" value=$sql_device_name><br>\n";
-                        echo "Device Details: <br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" >$sql_device_details</textarea>\n";
-                        echo "<br>URL: <input type=\"radio\" name=\"qrcode_action\" value=\"URL\" required>";
-	                echo "Email: <input type=\"radio\" name=\"qrcode_action\" value=\"email\" required><br>";
+			echo "<br>Device Name: <input type=\"text\" name=\"device_name\" maxlength=\"255\" value=$sql_device_name><br>\n";
+                        #echo "Device Details: <br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" >$sql_device_details</textarea>\n";
+			echo "Device Details<br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" minlength=\"2\" maxlength=\"255\" onkeyup=\"textCounter(this,'counter',255);\" placeholder=\"Device Details\"></textarea><br>Chracters remaining (out of 255):<input disabled maxlength=\"255\" size=\"1\" value=\"0\" id=\"counter\" style=\"color:white;\">";
+                        echo "<br><br><br>QR Code Action:<br><br>URL: <input type=\"radio\" name=\"qrcode_action\" value=\"URL\" required>";
+	                echo "<br><br>Email: <input type=\"radio\" name=\"qrcode_action\" value=\"email\" required><br><br>";
 		} else {
 			echo "not sure how you got here";
 			exit(1);
