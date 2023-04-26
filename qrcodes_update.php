@@ -72,7 +72,7 @@ if (isset($_POST["device_details"]))
 				echo "ERROR: ID10T: please set Server FQDN in settings page";
 				exit(1);
 			}
-	                $cmd = "$server_fqdn" . "/qrcodes_search.php?device_id=" . $nextDeviceId;
+	                $cmd = "$server_fqdn" . "/qrcodes_search.php?device_id=" . $device_id;
 		}
         $space_cmd = str_replace(' ','%20', $cmd);
         $newline_cmd = str_replace('\n','%0A',$space_cmd);
