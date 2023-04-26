@@ -74,6 +74,7 @@ try {
                 $sql_device_id = $row["device_id"];
                 $sql_device_name = $row["device_name"];
                 $sql_device_details = $row["device_details"];
+                $sql_qrcode_action = $row["qrcode_action"];
 	}
 
   if ($result->rowCount() > 0) {
@@ -88,6 +89,8 @@ try {
                 	echo "Device ID (immutable): <input name=\"device_id\" value=$sql_device_id readonly>\n";
 			echo "<br>Device Name: <input type=\"text\" name=\"device_name\" value=$sql_device_name><br>\n";
                         echo "Device Details: <br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" >$sql_device_details</textarea>\n";
+                        echo "<br>URL: <input type=\"radio\" name=\"qrcode_action\" value=\"URL\" required>";
+	                echo "Email: <input type=\"radio\" name=\"qrcode_action\" value=\"email\" required><br>";
 		} else {
 			echo "not sure how you got here";
 			exit(1);
