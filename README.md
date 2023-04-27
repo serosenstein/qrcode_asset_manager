@@ -27,7 +27,7 @@
 	# just make sure you update podman-compose.yml to match in mariadb environment section, if not defaults work for testing
 	cd docker
 	sudo podman-compose up -d
-	sudo firewall-cmd --permanent --allow-port=8080/tcp
+	sudo firewall-cmd --permanent --add-port=8080/tcp
 	sudo firewall-cmd --reload
 
 #Pre Reqs:
