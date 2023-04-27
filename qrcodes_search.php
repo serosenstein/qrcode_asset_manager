@@ -70,7 +70,7 @@ if (isset($_POST["device_details"]))
 } else {
 	$device_details = "";
 }
-if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_search == "") {
+if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_search == "" && $quick_search == "") {
 	echo "Display search results for all";
 	$CLAUSE = "select * from qrcodes";
 } else {
@@ -80,10 +80,13 @@ if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_s
 	if ( $device_id == "" ) {
 		$device_id = "N/A";
 	}
+	if ( $quick_search == "" ) {
+		$quick_search = "N/A";
+	}
 	if ( $device_details == "" || !isset($device_details)) {
 		$device_details = "N/A";
 	}
-	echo "Chosen search critera for<br>\nDevice ID: $device_id<br>\nDevice Name: $device_name<br>\nDevice Details: $device_details";
+	echo "Chosen search critera for<br>\nDevice ID: $device_id<br>\nDevice Name: $device_name<br>\nDevice Details: $device_details<br>\nQuick Search (wildcard): $quick_search";
 }
 $CLAUSE .= " order by device_id asc;";
 echo "<html>\n";

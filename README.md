@@ -1,6 +1,7 @@
-![Add new device](https://github.com/serosenstein/qrcode_asset_manager/raw/main/add_new_device.png "Add new device")
-![Screen After newly added device](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screen_after_add.png "screen after newly added device")
-![search all](https://github.com/serosenstein/qrcode_asset_manager/raw/main/search_all.png "search all")
+![Main Page/Add Device/Search](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screenshots/screenshot1.png)
+![Show Devices](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screenshots/screenshot4.png)
+![Update Device Menu](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screenshots/screenshot3.png)
+![Settings Page](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screenshots/screenshot2.png)
 
 # Docker/podman install (used ubuntu server as test): #
 	sudo apt-get install docker docker-compose git
