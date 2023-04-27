@@ -21,13 +21,9 @@
 - A mysql DB server that is allowing remote connections 
 - Change the vars.php.example to vars.php and change the parameters to fit your env 
 # To create an empty table called qrcodes (we are assuming this is in a DB also called qrcodes):
-CREATE TABLE `qrcodes` (
-  `device_id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `device_name` varchar(255) DEFAULT NULL,
-  `device_details` varchar(255) DEFAULT NULL,
-  `qrcode` longblob NOT NULL,
-  PRIMARY KEY (`device_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+CREATE TABLE qrcodes ( device_id bigint unsigned NOT NULL AUTO_INCREMENT, device_name varchar(255) DEFAULT NULL, device_details varchar(255) DEFAULT NULL, qrcode longblob NOT NULL, qrcode_action VARCHAR(255) DEFAULT NULL, PRIMARY KEY (device_id) ) ENGINE=myisam AUTO_INCREMENT=0 DEFAULT CHARSET=LATIN1;
+commit;
+
 
 # Give qrcodes user grants from any host:
 
