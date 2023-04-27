@@ -3,17 +3,32 @@
 ![Update Device Menu](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screenshots/screenshot3.png)
 ![Settings Page](https://github.com/serosenstein/qrcode_asset_manager/raw/main/screenshots/screenshot2.png)
 
-# Docker/podman install (used ubuntu server as test): #
+# Docker install (used ubuntu server as test): #
 	sudo apt-get install docker docker-compose git
 	mkdir ~/opt
 	cd ~/opt
 	git clone https://github.com/serosenstein/qrcode_asset_manager.git
 	cd qrcode_asset_manager;
 	cp vars.json.example vars.json
+	# if you want to change variables (recommended) you can do it now in vars.json
+	# just make sure you update docker-compose.yml to match in mariadb environment section, if not defaults work for testing
 	cd docker
 	sudo docker-compose up -d
 	sudo ufw allow 8080/tcp
 
+# Podman install (used rockylinux to test): #
+	sudo yum -y install podman podman-compose git
+	mkdir ~/opt
+	cd ~/opt
+	git clone https://github.com/serosenstein/qrcode_asset_manager.git
+	cd qrcode_asset_manager;
+	cp vars.json.example vars.json
+	# if you want to change variables (recommended) you can do it now in vars.json
+	# just make sure you update podman-compose.yml to match in mariadb environment section, if not defaults work for testing
+	cd docker
+	sudo podman-compose up -d
+	sudo firewall-cmd --permanent --allow-port=8080/tcp
+	sudo firewall-cmd --reload
 
 #Pre Reqs:
 - webserver with php configured
