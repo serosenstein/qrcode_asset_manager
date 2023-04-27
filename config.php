@@ -5,6 +5,9 @@ print <<< EOD1
 	<head>
 	<link rel="stylesheet" href="style.php" media="screen">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script>
+		input { width: 100%; }
+	</script>
 	<ul>
 	  <li><a href="index.html">Home</a></li>
 	    <li><a href="config.php">Settings</a></li>
@@ -31,6 +34,8 @@ if (!empty($_POST)) {
 					$serverPort = $_SERVER['SERVER_PORT'];
 					$value = "http://$serverName:$serverPort";	
 					$tempArray["server_fqdn"] = $value;
+				} else if ($key == "email") {
+					echo "No email set, you will have issues if you try to encode with email\n";
 				} else {
 					echo "$key is empty\n<br>";
 					unset($_POST);
@@ -74,21 +79,20 @@ print <<< EOD
 <body>
 <center>
 <form method="post">
-    <h1>Servername: <input name="servername" id="servername" value="$servername" required>
-    <br>DB App user: <input name="username" id="username" value="$username" required>
-    <br>DB App password: <input type="password" name="password" id="password" value="$password" style="-webkit-text-security: circle" required />
-    <br>Database name: <input name="dbname" id="dbname" value="$dbname" required>
-    <br>Database port: <input name="port" id="port" value="$port" required>
-    <br>Email address: <input name="email" id="email" value="$email" required>
-    <br>Server FQDN: <input name="server_fqdn" id="server_fqdn" value="$server_fqdn" >
-    <br>Foreground color: <input name="foreground_color" type="color" value="#$foreground_color"/ required>
-    <br>Background color: <input name="background_color" type="color" value="#$background_color"/ required>
+    <h3>DB Server Hostname/IP<br><input type="text" name="servername" id="servername" value="$servername" required>
+    <br><br>DB App user<br><input type="text" name="username" id="username" value="$username" required>
+    <br><br>DB App password<br><input type="password" name="password" id="password" value="$password" style="-webkit-text-security: circle" required />
+    <br><br>Database name<br><input type="text" name="dbname" id="dbname" value="$dbname" required>
+    <br><br>Database port<br><input type="text" name="port" id="port" value="$port" required>
+    <br><br>Email address<br><input type="text" name="email" id="email" value="$email" placeholder="user@domain.com">
+    <br><br>Server fully qualified domain name<br><input type="text" name="server_fqdn" id="server_fqdn" value="$server_fqdn" placeholder="http://192.168.1.222:8080">
+    <br><br>Foreground color<br><input name="foreground_color" type="color" value="#$foreground_color"/ required>
+    <br><br>Background color<br><input name="background_color" type="color" value="#$background_color"/ required>
 <br>
   <input type="submit" name="submit" value="Update settings"/>
 </form>
 </center>
-</h1>
-
+</h3>
 </body>
 </html>
 EOD;
