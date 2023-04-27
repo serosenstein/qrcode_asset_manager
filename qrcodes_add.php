@@ -10,6 +10,7 @@ print <<< EOD
 	<head>
 	<link rel="stylesheet" href="style.php" media="screen">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<ul>
 	  <li><a href="index.html">Home</a></li>
 	    <li><a href="config.php">Settings</a></li>
