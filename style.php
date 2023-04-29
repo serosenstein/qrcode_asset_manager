@@ -282,3 +282,15 @@ box-sizing: border-box;
   text-decoration: none;
   cursor: pointer;
 }
+.effectfront {
+  border: none;
+  margin: 0 auto;
+}
+.effectfront:hover {
+  -webkit-transform: scale(2.2);
+  -moz-transform: scale(2.2);
+  -o-transform: scale(2.2);
+  transform: scale(2.2);
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+}

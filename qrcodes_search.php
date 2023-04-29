@@ -113,7 +113,7 @@ try {
 		echo "<td><center>\n$new_device_id</center></td>";
 		echo "<td><center>\n$new_device_name</center></td>";
 		echo "<td><center>\n" . nl2br($new_device_details) . "</center></td>";
-                echo '<td><center><img src="data:image/png;base64,'.$new_device_qrcode .'" /></center></td>';
+                echo '<td><center><img class="effectfront" src="data:image/png;base64,'.$new_device_qrcode .'" /></center></td>';
 		echo "<td><center><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\" checked> Generate Label</center></td>";
 		echo "<td><center>\n$new_qrcode_action</center></td>";
 		echo "<td><center><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</center></td>";
