@@ -11,6 +11,7 @@ print <<< EOD
 <ul>
   <li><a href="index.html">Home</a></li>
   <li><a href="config.php">Settings</a></li>
+  <li><a href="#" id="myBtn">Advanced Search</a></li>
   <form action="qrcodes_search.php" method="post">
   <input type="text" name="quick_search" placeholder="Quick Search..." name="search">
   <button type="submit"><i class="fa fa-search"></i></button>
@@ -142,6 +143,52 @@ print <<<EOD
 		Number of blank placeholders you want to have at beginning of labels (left to right, top to bottom), Default is 0<br><input type="text" name="skip_number" placeholder="Optional, e.g. 4" value=""><br>
 		<input type="submit" name="print" class="button" formaction="print_label.php" value="Generate Labels" />
 		</form></div><div id="bottom"></div>
+        <div id="myModal" class="modal">
+
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                                <span class="close">&times;</span>
+                <div class="section" >
+                        <h2>Advanced Search<br>(empty values will return all)</h2>
+                <form action="qrcodes_search.php" method="post">
+                        Device Name (partial match)<br><input type="text" name="device_name"><br>
+                        Device Details (partial match)<br><input type="text" name="device_details"><br>
+                        Device ID (exact match)<br><input type="text" name="device_id"><br>
+                        <br>
+                        <input type="submit" class="button" value="Search">
+                        <br><br><br>
+                </form>
+                </div>
+                                      </div>
+
+				              </div>
+        <script>
+                // Get the modal
+                 var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+          modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+          modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+          if (event.target == modal) {
+                      modal.style.display = "none";
+                    }
+}
+        </script>
 EOD;
 
   } else {
