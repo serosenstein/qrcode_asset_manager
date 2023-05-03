@@ -1,4 +1,5 @@
 <?php
+session_start();
 print <<< EOD
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,8 @@ foreach ($json as $field => $value) {
 }
 $c = "1";
 $CLAUSE = "select * from qrcodes where ";
-if (isset($_POST["quick_search"]))
+#if (isset($_POST["quick_search"]))
+if (isset($_POST["quick_search"]) && ( !isset($_POST["device_details"]) || !isset($_POST["device_id"]) && !isset($_POST["device_name"])))
 {
 	$quick_search = $_POST["quick_search"];
 	if ($quick_search != "" ){
@@ -67,6 +69,7 @@ if (isset($_POST["device_name"]))
 if (isset($_POST["device_details"]))
 {
 	$device_details= $_POST["device_details"];
+	global $device_details;
 	$CLAUSE .= " AND device_details like '%$device_details%' ";
  	#$CLAUSE_COUNT++;
 } else {
@@ -103,7 +106,7 @@ try {
   $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
 	  echo "<form method=\"post\" id=\"SubmitForm\">\n";
-	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code</th><th><input type=\"checkbox\" id=\"all\" checked> Generate Label</th><th>QR Action</th><th>Delete/Edit Device</th></tr>\n";
+	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code (click to regenerate)</th><th><input type=\"checkbox\" id=\"all\" checked> Generate Label</th><th>QR Action</th><th>Delete/Edit Device</th></tr>\n";
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $new_device_id = $row["device_id"];
                 $new_device_name = $row["device_name"];
@@ -114,7 +117,7 @@ try {
 		echo "<td><center>\n$new_device_id</center></td>";
 		echo "<td><center>\n$new_device_name</center></td>";
 		echo "<td><center>\n" . nl2br($new_device_details) . "</center></td>";
-                echo '<td><center><img class="effectfront" src="data:image/png;base64,'.$new_device_qrcode .'" /></center></td>';
+                echo '<td><center><a href="qrcodes_regenerate.php?device_id='.$new_device_id.'"><img class="effectfront" src="data:image/png;base64,'.$new_device_qrcode .'" /></a></center></td>';
 		echo "<td><center><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\" checked> Generate Label</center></td>";
 		echo "<td><center>\n$new_qrcode_action</center></td>";
 		echo "<td><center><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</center></td>";
@@ -124,6 +127,13 @@ try {
 	  	echo "</table>\n";
 		echo "<input type=\"submit\" class=\"button\" name=\"update_button\" formaction=\"qrcodes_select.php\" value=\"Update\" />";
 		echo "   <input type=\"submit\" class=\"button\" name=\"delete_button\" formaction=\"qrcodes_select.php\" value=\"Delete\" />\n<br><br>";
+
+  } else {
+	echo "<h1>No matches found for your search, please try again</h1>";
+  }
+} catch(PDOException $e) {
+  echo $sql . "<br>" . $e->getMessage();
+}
 print <<<EOD
 		<div class="section" id="labelmenu" style="display:block">
 		<!--<input type="checkbox" id="all">Select all-->
@@ -190,13 +200,6 @@ window.onclick = function(event) {
 }
         </script>
 EOD;
-
-  } else {
-	echo "<h1>No matches found for your search, please try again</h1>";
-  }
-} catch(PDOException $e) {
-  echo $sql . "<br>" . $e->getMessage();
-}
 $conn = null;
 echo "</center></body></html>\n";
 ?>

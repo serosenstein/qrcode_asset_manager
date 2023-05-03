@@ -26,6 +26,8 @@ foreach ($json as $field => $value) {
 if (isset($_POST["device_id"]))
 {
 	$device_id = $_POST["device_id"];
+} else if (isset($_GET["device_id"])) {
+	$device_id = $_GET["device_id"];
 } else {
 	echo "You didn't set a device_id</body></html>";
 }
