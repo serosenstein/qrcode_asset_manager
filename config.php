@@ -91,6 +91,11 @@ print <<< EOD
     <br><br>Foreground color<br><input name="foreground_color" type="color" value="#$foreground_color"/ required>
     <br><br>Background color<br><input name="background_color" type="color" value="#$background_color"/ required>
 <br>
+EOD;
+	$final_cmd = "echo \"mailto:$email?subject=Color%20Test%20&body=servername:%20$servername%0Ausername:%20$username%0Adbname:%20$dbname%0Aport:%20$port%0Aemail:%20$email\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
+	$qr_result = shell_exec("$final_cmd 2>&1");
+	echo '<br><br>Current Settings Display: <center><img class="effectfront" src="data:image/png;base64,'.$qr_result .'" /></center><br><br>';
+print <<< EOD2
   <input type="submit" name="submit" value="Update settings"/>
 </form>
 </center>
@@ -142,8 +147,9 @@ window.onclick = function(event) {
                     }
 }
 </script>
-
+EOD2;
+print <<< EOD1
 </body>
 </html>
-EOD;
+EOD1;
 ?>

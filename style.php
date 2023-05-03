@@ -293,4 +293,5 @@ box-sizing: border-box;
   transform: scale(2.2);
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
+  cursor: none;
 }
