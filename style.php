@@ -41,6 +41,9 @@ border: white;
   margin: 4px 2px;
   cursor: pointer;
 }
+.templatedisplay {
+all: revert;
+}
 ul {
   list-style-type: none;
   margin: 0;

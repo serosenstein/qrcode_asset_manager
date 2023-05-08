@@ -12,8 +12,9 @@ print <<< EOD
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<ul>
-	  <li><a href="index.html">Home</a></li>
+	  <li><a href="index.php">Home</a></li>
 	    <li><a href="config.php">Settings</a></li>
+	    <li><a href="qrcodes_tags.php">Tag Colors</a></li>
 	      <form action="qrcodes_search.php" method="post">
 	        <input type="text" name="quick_search" placeholder="Quick Search..." name="search">
 		  <button type="submit"><i class="fa fa-search"></i></button>
@@ -82,6 +83,21 @@ if (isset($_POST["device_name"]))
 } else {
 	exit("device name not set");
 }
+if (isset($_POST["colors"])) {
+	$color_array = explode("|", $_POST["colors"]);
+	$tag_name = $color_array[0];
+	$foreground_color = str_replace('#','', $color_array[1]);
+	$background_color = str_replace('#','', $color_array[2]);
+	global $foreground_color;
+	global $background_color;
+
+} else {
+	echo "no color set, using black and white as default";
+	$background_color  = "ffffff";
+	$foreground_color = "000000";
+	global $foreground_color;
+	global $background_color;
+}
 if (isset($_POST["device_details"]))
 {
 	$device_details= $_POST["device_details"];
@@ -113,6 +129,7 @@ if (isset($_POST["device_details"]))
 		exit(1);
 	}
 	$final_cmd = "echo \"$newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
+	echo $final_cmd;
 	$qr_result = shell_exec("$final_cmd 2>&1");
 	echo "\n\n<br><br>\n";
 } else {

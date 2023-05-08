@@ -10,8 +10,9 @@ print <<< EOD1
 		input { width: 100%; }
 	</script>
 	<ul>
-	  <li><a href="index.html">Home</a></li>
+	  <li><a href="index.php">Home</a></li>
 	    <li><a href="config.php">Settings</a></li>
+	    <li><a href="qrcodes_tags.php">Tag Colors</a></li>
 	    <li><a href="#" id="myBtn">Advanced Search</a></li>
 	      <form action="qrcodes_search.php" method="post">
 	        <input type="text" name="quick_search" placeholder="Quick Search..." >
@@ -19,16 +20,13 @@ print <<< EOD1
 	    </form>
 	    </ul>
 EOD1;
-$allowedArray=["servername","username","dbname","port","email","foreground_color","background_color","password","foreground_color1","server_fqdn"];
+$allowedArray=["servername","username","dbname","port","email","password","server_fqdn"];
 if (!empty($_POST)) {
 	$tempArray = [];
 	foreach($_POST as $key => $value)
 	{
 		if(in_array($key,$allowedArray)) {
 			#echo "$key and $value";
-			if ($key == "background_color" || $key == "foreground_color") {
-				$value = str_replace('#','', $value);
-			}
 			$tempArray[$key] = $value;
 			if($value == "") {
 				if ($key == "server_fqdn") {
@@ -88,13 +86,8 @@ print <<< EOD
     <br><br>Database port<br><input type="text" name="port" id="port" value="$port" required>
     <br><br>Email address<br><input type="text" name="email" id="email" value="$email" placeholder="user@domain.com">
     <br><br>Server fully qualified domain name<br><input type="text" name="server_fqdn" id="server_fqdn" value="$server_fqdn" placeholder="http://192.168.1.222:8080">
-    <br><br>Foreground color<br><input name="foreground_color" type="color" value="#$foreground_color"/ required>
-    <br><br>Background color<br><input name="background_color" type="color" value="#$background_color"/ required>
 <br>
 EOD;
-	$final_cmd = "echo \"mailto:$email?subject=Color%20Test%20&body=servername:%20$servername%0Ausername:%20$username%0Adbname:%20$dbname%0Aport:%20$port%0Aemail:%20$email\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
-	$qr_result = shell_exec("$final_cmd 2>&1");
-	echo '<br><br>Current Settings Display: <center><img class="effectfront" src="data:image/png;base64,'.$qr_result .'" /></center><br><br>';
 print <<< EOD2
   <input type="submit" name="submit" value="Update settings"/>
 </form>

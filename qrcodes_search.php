@@ -10,8 +10,9 @@ print <<< EOD
 <script src="floater.js"></script>
 <link rel="stylesheet" href="style.php" media="screen">
 <ul>
-  <li><a href="index.html">Home</a></li>
+  <li><a href="index.php">Home</a></li>
   <li><a href="config.php">Settings</a></li>
+  <li><a href="qrcodes_tags.php">Tag Colors</a></li>
   <li><a href="#" id="myBtn">Advanced Search</a></li>
   <form action="qrcodes_search.php" method="post">
   <input type="text" name="quick_search" placeholder="Quick Search..." name="search">

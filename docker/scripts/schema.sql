@@ -1,2 +1,3 @@
 CREATE TABLE qrcodes ( device_id bigint unsigned NOT NULL AUTO_INCREMENT, device_name varchar(255) DEFAULT NULL, device_details varchar(255) DEFAULT NULL, qrcode longblob NOT NULL, qrcode_action VARCHAR(255) DEFAULT NULL, PRIMARY KEY (device_id) ) ENGINE=myisam AUTO_INCREMENT=0 DEFAULT CHARSET=LATIN1;
+CREATE TABLE colors ( tag_id bigint unsigned NOT NULL AUTO_INCREMENT, tag_name VARCHAR(255) NOT NULL, bg_color varchar(255) NOT NULL, fg_color varchar(255) NOT NULL, notes VARCHAR(255) DEFAULT NULL, UNIQUE(tag_name), PRIMARY KEY (tag_id) ) ENGINE=MYISAM AUTO_INCREMENT=0 DEFAULT CHARSET=LATIN1;
 commit;
