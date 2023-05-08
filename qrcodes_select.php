@@ -112,6 +112,45 @@ try {
 			echo "Device Details<br><textarea class=\"FormElement\" name=\"device details\" id=\"device_details\" cols=\"100\" rows=\"20\" minlength=\"2\" maxlength=\"255\" onkeyup=\"textCounter(this,'counter',255);\" placeholder=\"Device Details\">$sql_device_details</textarea><br>Chracters remaining (out of 255):<input disabled maxlength=\"255\" size=\"1\" value=\"0\" id=\"counter\" style=\"color:white;\">";
                         echo "<br><br><br>QR Code Action:<br><br>URL: <input type=\"radio\" name=\"qrcode_action\" value=\"URL\" required $url_checked>";
 	                echo "<br><br>Email: <input type=\"radio\" name=\"qrcode_action\" value=\"email\" required $email_checked><br><br>";
+                        $file_path = "color-templates.json";
+
+                        // Load existing templates
+                        $templates = [];
+                        if (file_exists($file_path)) {
+                                    $templates = json_decode(file_get_contents($file_path), true);
+                        }
+                        if (empty($templates)) {
+                                   echo "<p>No color profiles exist yet, but you can <a href=\"qrcodes_tags.php\">create one here</a> </p>";
+                        } else
+                        {
+                                        foreach ($templates as $tag => $template) {
+                                                $is_default = $template["default"];
+                                                $default_tag = $tag;
+                                                $default_fg = $template["foreground"];
+                                                $default_bg = $template["background"];
+                                                if ($is_default) {
+                                                echo "<label class=\"templatedisplay\" for=\"colors\"><strong>Choose a color profile</strong></label><br>";
+                                                echo "<select name=\"colors\" id=\"colorchooser\">";
+                                                echo "<option value=$tag|$default_fg|$default_bg foreground=\"$default_fg\" background=\"$default_bg\">$tag (default)</option>\n";
+                                                }
+                                                echo "<br>            <br>\n";
+
+
+                                                                }
+                                        foreach ($templates as $tag => $template) {
+                                                $is_default = $template["default"];
+                                                $fg = $template["foreground"];
+                                                $bg = $template["background"];
+                                                if (!$is_default) {
+                                                echo "<option value=$tag|$fg|$bg foreground=\"$fg\" background=\"$bg\">$tag</option>\n";
+                                                }
+                                                echo "<br><br>\n";
+
+
+                                                                }
+                                        echo "</select>";
+                        }
+
 		} else {
 			echo "not sure how you got here";
 			exit(1);

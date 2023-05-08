@@ -40,6 +40,21 @@ if ($device_name == "" ){
 		echo "No device name provided";
 		exit(1);
 }	
+if (isset($_POST["colors"])) {
+	        $color_array = explode("|", $_POST["colors"]);
+		        $tag_name = $color_array[0];
+		        $foreground_color = str_replace('#','', $color_array[1]);
+			        $background_color = str_replace('#','', $color_array[2]);
+			        global $foreground_color;
+				        global $background_color;
+
+} else {
+        echo "no color set, using black and white as default";
+        $background_color  = "ffffff";
+        $foreground_color = "000000";
+        global $foreground_color;
+        global $background_color;
+}
 if (isset($_POST["qrcode_action"]))
 {
         $qrcode_action = $_POST["qrcode_action"];
