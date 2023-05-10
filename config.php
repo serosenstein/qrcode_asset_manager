@@ -20,7 +20,7 @@ print <<< EOD1
 	    </form>
 	    </ul>
 EOD1;
-$allowedArray=["servername","username","dbname","port","email","password","server_fqdn"];
+$allowedArray=["servername","username","dbname","port","email","password","server_fqdn","defaultrowsPerPage"];
 if (!empty($_POST)) {
 	$tempArray = [];
 	foreach($_POST as $key => $value)
@@ -84,6 +84,7 @@ print <<< EOD
     <br><br>DB App password<br><input type="password" name="password" id="password" value="$password" style="-webkit-text-security: circle" required />
     <br><br>Database name<br><input type="text" name="dbname" id="dbname" value="$dbname" required>
     <br><br>Database port<br><input type="text" name="port" id="port" value="$port" required>
+    <br><br>Default Records Per Page<br><input type="number" name="defaultrowsPerPage" id="defaultrowsPerPage" value="$defaultrowsPerPage" required>
     <br><br>Email address<br><input type="text" name="email" id="email" value="$email" placeholder="user@domain.com">
     <br><br>Server fully qualified domain name<br><input type="text" name="server_fqdn" id="server_fqdn" value="$server_fqdn" placeholder="http://192.168.1.222:8080">
 <br>

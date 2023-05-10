@@ -76,7 +76,7 @@ li a:hover {
   background-color: #4CAF50;
 }
 
-input[type=text], select {
+input[type=text],input[type=number], select {
   width: 30%;
   padding: 12px 20px;
   margin: 8px 0;
