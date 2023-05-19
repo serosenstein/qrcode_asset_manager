@@ -404,7 +404,7 @@ $result = $conn->query($CLAUSE);
                 }
             }
 	  echo "<form method=\"post\" id=\"SubmitForm\">\n";
-	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code (click to regenerate with default tag color)</th><th><input type=\"checkbox\" id=\"all\" checked> Generate Label</th><th>QR Action</th><th>Delete/Edit Device</th></tr>\n";
+	  echo "<table style=\"width:100%\"><tr><th>Device ID</th><th>Device Name</th><th>Device Details</th><th>QR code (click to quick edit)</th><th><input type=\"checkbox\" id=\"all\" checked> Generate Label</th><th>QR Action</th><th>Delete/Edit Device</th></tr>\n";
           while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 $new_device_id = $row["device_id"];
                 $new_device_name = $row["device_name"];
@@ -415,7 +415,8 @@ $result = $conn->query($CLAUSE);
 		echo "<td><center>\n$new_device_id</center></td>";
 		echo "<td><center>\n$new_device_name</center></td>";
 		echo "<td><center>\n" . nl2br($new_device_details) . "</center></td>";
-                echo '<td><center><a href="qrcodes_regenerate.php?device_id='.$new_device_id.'"><img class="effectfront" src="data:image/png;base64,'.$new_device_qrcode .'" /></a></center></td>';
+                #echo '<td><center><a href="qrcodes_regenerate.php?device_id='.$new_device_id.'"><img class="effectfront" src="data:image/png;base64,'.$new_device_qrcode .'" /></a></center></td>';
+                echo '<td><center><a href="qrcodes_select.php?update_button&device_id='.$new_device_id.'"><img class="effectfront" src="data:image/png;base64,'.$new_device_qrcode .'" /></a></center></td>';
 		echo "<td><center><input type=\"checkbox\" class=\"chk_boxes1\" name=print_device_id[] value=\"$new_device_id\" checked> Generate Label</center></td>";
 		echo "<td><center>\n$new_qrcode_action</center></td>";
 		echo "<td><center><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</center></td>";

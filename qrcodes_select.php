@@ -37,14 +37,25 @@ $json = json_decode($str, true);
 foreach ($json as $field => $value) {
 	$$field = $value;
 }
-$device_array = $_POST["device_id"];
+if(isset($_POST["device_id"])) {
+	$device_id = $_POST["device_id"];
+	$device_array = $_POST["device_id"];
+} else if (isset($_GET["device_id"])) {
+	$device_id = $_GET["device_id"];
+	$device_array = $_GET["device_id"];
+} else {
+	echo "No device ID provided";
+	exit(1);
+}
 if (is_array($device_array)) {
 	$device_array_length = sizeof($device_array);
+} else if (isset($device_array)){ 
+	$device_array_length = "1";
 } else {
 		echo "<br><h1>ERROR: you didn't select a radio button to update or delete</h1>\n";
 		exit(1);
 }
-if (isset($_POST['update_button'])) {
+if (isset($_POST['update_button']) || isset($_GET['update_button'])) {
    echo "<h1>Update Menu</h1>\n";
 	if ($device_array_length == "0") {
 		echo "<br><h1>ERROR: you didn't select a radio button to update</h1>\n";
@@ -70,14 +81,6 @@ $id_clause = rtrim($device_commas, ',');
 $id_clause = "($id_clause);";
 $CLAUSE = "select * from qrcodes where device_id in $id_clause";
 
-if (isset($_POST["device_id"]))
-{
-	$device_id = $_POST["device_id"];
-	if ($device_id == "" ){
-		echo "No device ID provided";
-		exit(1);
-	}
-}
 try {
   $conn = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
   // set the PDO error mode to exception
