@@ -269,28 +269,28 @@ if (isset($_POST["clear_device_name"])) {
 	unset($_POST['device_name']);
 	unset($device_name);
 	unset($_POST['clear_device_name']);
-	header("refresh: 0;");
+	echo "<meta http-equiv='refresh' content='0;url=''>";
 }
 if (isset($_POST["clear_device_id"])) {
 	unset($_SESSION['device_id']);
 	unset($_POST['device_id']);
 	unset($device_id);
 	unset($_POST['clear_device_id']);
-	header("refresh: 0;");
+	echo "<meta http-equiv='refresh' content='0;url=''>";
 }
 if (isset($_POST["clear_device_details"])) {
 	unset($_SESSION['device_details']);
 	unset($_POST['device_details']);
 	unset($device_details);
 	unset($_POST['clear_device_details']);
-	header("refresh: 0;");
+	echo "<meta http-equiv='refresh' content='0;url=''>";
 }
 if (isset($_POST["clear_quick_search"])) {
 	unset($_SESSION['quick_search']);
 	unset($_POST['quick_search']);
 	unset($quick_search);
 	unset($_POST['clear_quick_search']);
-	header("refresh: 0;");
+	echo "<meta http-equiv='refresh' content='0;url=>";
 }
 
 //button to clear all search criteria
@@ -308,7 +308,7 @@ $setArray = array("device_id","device_name","device_details","quick_search");
 foreach ($setArray as $key => $value) {
 	if ($value!= "" && $$value != "") {
 		echo "<form id=\"smallbutton\" action=\"qrcodes_search.php\" method=\"post\">\n";
-		echo "<input type=\"submit\" id=\"smallbutton\" value=\"X $value:{$$value}\" name=\"clear_$value\" onclick=\"unset_criteria('$value')\">\n";
+		echo "<input type=\"submit\" id=\"smallbutton\" value=\"[X] $value:{$$value}\" name=\"clear_$value\" onclick=\"unset_criteria('$value')\">\n";
 		echo "</form>   \n";
 
 	}

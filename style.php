@@ -111,7 +111,7 @@ input[type=submit] {
   cursor: pointer;
 }
 input[type=submit]#smallbutton::before {
-  content: "X";
+  background: "favicon.ico";
   display: inline-block;
   font-color: black;
 }
@@ -414,6 +414,7 @@ margin-left: 5px;
 /*width: 100px; // only for IE8*/
 margin-top: 7px;
 max-width: 100%;
+background: "favicon.ico";
 }
 .search_results {
 margin-right: 40%;
@@ -425,4 +426,24 @@ margin-right: 40%;
   color: #fff;
   font-weight: 300;
   font-family: Arial, sans-serif;
+}
+.input-holder {
+  /* This bit sets up the horizontal layout */
+  display:flex;
+  flex-direction:row;
+  
+  /* This bit draws the box around it */
+  border:1px solid grey;
+
+  /* I've used padding so you can see the edges of the elements. */
+  padding:1px;
+}
+.input-holder-inner {
+  /* Tell the input to use all the available space */
+  flex-grow:2;
+  /* And hide the input's outline, so the form looks like the outline */
+  border:none;
+}
+.input-holder-inner:focus {
+  outline: none;
 }
