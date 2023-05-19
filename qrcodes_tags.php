@@ -13,11 +13,13 @@ if (file_exists($file_path)) {
 if (isset($_POST["create_template"])) {
     // Get the submitted data
     $tag = $_POST["tag"];
+    $tag = str_replace(' ', '_', $tag);
     $foreground = $_POST["foreground"];
     $background = $_POST["background"];
     $is_default = isset($_POST["default"]);
 
     // Check if a template with the same tag name already exists
+
     if (array_key_exists($tag, $templates)) {
         echo "A template with the tag name '$tag' already exists.";
     } else {
@@ -48,6 +50,8 @@ if (isset($_POST["action"])) {
     // Get the submitted data
     $tag = $_POST["tag"];
     $action = $_POST["action"];
+    #make sure that tag doesn't have any space and replace it with underscores
+    $tag = str_replace(' ', '_', $tag);
 
     // Check if the template exists
     if (array_key_exists($tag, $templates)) {
