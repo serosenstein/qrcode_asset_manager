@@ -9,6 +9,15 @@ $font_family = 'Arial, Helvetica, sans-serif';
 $font_size = '0.7em';
 $border = '1px solid #FFFFFF';
 ?>
+#spacer {
+  margin-top: 10px;
+  clear: right;
+  width: 100%;
+  margin-left: 40%;
+  text-align: center;
+  position: relative;
+  
+}
 th {
 font-family: <?=$font_family?>;
 font-size: <?=$font_size?>;
@@ -98,10 +107,6 @@ input[type=text],input[type=number], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-.spacer {
-  width: 50%;
-  margin-top: -10px;
-}
 input[type=submit] {
   width: 50%;
   background-color: #4CAF50;
@@ -170,7 +175,11 @@ position: relative;
 text-align: center;
 display: block;
 clear: both;
+width: auto;
+position: relative;
+margin-top: -20px;
 margin-bottom: 10px;
+//margin-left: 20%;
 bottom: 10;
 
 }
