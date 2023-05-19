@@ -82,7 +82,7 @@ li a {
 }
 
 li a:hover {
-  background-color: #111;
+  color: black;
 }
 
 .active {
