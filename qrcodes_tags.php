@@ -14,6 +14,8 @@ if (isset($_POST["create_template"])) {
     // Get the submitted data
     $tag = $_POST["tag"];
     $tag = str_replace(' ', '_', $tag);
+    #convert all to lower
+    $tag = strtolower($tag);
     $foreground = $_POST["foreground"];
     $background = $_POST["background"];
     $is_default = isset($_POST["default"]);
@@ -52,6 +54,8 @@ if (isset($_POST["action"])) {
     $action = $_POST["action"];
     #make sure that tag doesn't have any space and replace it with underscores
     $tag = str_replace(' ', '_', $tag);
+    #convert all to lower
+    $tag = strtolower($tag);
 
     // Check if the template exists
     if (array_key_exists($tag, $templates)) {
