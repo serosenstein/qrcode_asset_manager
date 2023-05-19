@@ -9,7 +9,6 @@ $font_family = 'Arial, Helvetica, sans-serif';
 $font_size = '0.7em';
 $border = '1px solid #FFFFFF';
 ?>
-
 th {
 font-family: <?=$font_family?>;
 font-size: <?=$font_size?>;

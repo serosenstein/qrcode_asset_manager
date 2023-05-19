@@ -370,17 +370,16 @@ $result = $conn->query($CLAUSE);
                 for ($i = 1; $i <= $totalPages; $i++) {
                     if ($i == $page) {
 		        
-                        #echo "Current Page: <a href=\"qrcodes_search.php?page=$i\"><b>$i</b></a>";
-                        echo "<div id=\"pages\">Page: <strong>$i</strong><br>";
-			#if ($page != $firstpage) {
-			#    echo "<a href=\"qrcodes_search.php?page=$firstpage\"><<</a> ";
-			#    echo "<a href=\"qrcodes_search.php?page=$previouspage\">Previous</a> ";
-			#    echo "<a href=\"qrcodes_search.php?page=$totalPages\">>></a> ";
-			#    echo "<br>";
-			#}
+                        #echo "<div id=\"pages\">Page: <strong>$i</strong><br>";
+			    echo "<br>";
 			
                         for ($i = 1; $i <= $totalPages; $i++) {
-                            echo "<a href='qrcodes_search.php?page=" .
+				if ($i == $page) {
+					$a_class = "current_page";
+				} else {
+					$a_class = "";
+				}
+                            echo "<a id=\"$a_class\" href='qrcodes_search.php?page=" .
                                 $i . "&rowsPerPage=" . $rowsPerPage .
                                 "'>" .
                                 $i .
@@ -416,21 +415,19 @@ $result = $conn->query($CLAUSE);
                     if ($i == $page) {
 		        
                         #echo "Current Page: <a href=\"qrcodes_search.php?page=$i\"><b>$i</b></a>";
-                        echo "Page: <strong>$i</strong><br>";
-			if ($page != $firstpage) {
-			    echo "<a href=\"qrcodes_search.php?page=$firstpage\"><<</a> ";
-			    echo "<a href=\"qrcodes_search.php?page=$previouspage\">Previous</a> ";
-			    echo "<a href=\"qrcodes_search.php?page=$totalPages\">>></a> ";
-			    echo "<br>";
-			}
-			
                         for ($i = 1; $i <= $totalPages; $i++) {
-                            echo "<a href='qrcodes_search.php?page=" .
+				if ($i == $page) {
+					$a_class = "current_page";
+				} else {
+					$a_class = "";
+				}
+                            echo "<a id=\"$a_class\" href='qrcodes_search.php?page=" .
                                 $i . "&rowsPerPage=" . $rowsPerPage .
                                 "'>" .
                                 $i .
                                 "</a> ";
                         }
+			
                         echo "</div>";
                     }
                 }
@@ -517,6 +514,30 @@ window.onclick = function(event) {
                     }
 }
         </script>
+<style>
+a:link {
+  color: white;
+  text-decoration: none;
+}
+a#current_page {
+  color: red;
+}
+
+/* visited link */
+a:visited {
+  color: white;
+}
+
+/* mouse over link */
+a:hover {
+  color: #45a049;
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
+</style>
         <script>
 // Get the modal
 var modal1 = document.getElementById("labelmenu");

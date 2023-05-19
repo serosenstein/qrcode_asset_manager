@@ -129,7 +129,6 @@ if (isset($_POST["device_details"]))
 		exit(1);
 	}
 	$final_cmd = "echo \"$newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
-	echo $final_cmd;
 	$qr_result = shell_exec("$final_cmd 2>&1");
 	echo "\n\n<br><br>\n";
 } else {
