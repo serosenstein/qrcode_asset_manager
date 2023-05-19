@@ -1,4 +1,24 @@
 <?php
+// Load existing templates
+$file_path = "color-templates.json";
+$templates = [];
+if (file_exists($file_path)) {
+    $templates = json_decode(file_get_contents($file_path), true);
+}
+// Add it to the list of templates
+$templates[$tag] = $template;
+// If this is the default template, unset the default flag for other templates
+foreach ($templates as &$t) {
+	if ($t["default"] == true){
+	#set the color 
+	$background_color = $t["background"];
+	$foreground_color = $t["foreground"];
+	#replace the # in the string with nothing
+	$background_color = str_replace('#', '', $background_color);
+	$foreground_color = str_replace('#', '', $foreground_color);
+	}
+
+}
 print <<< EOD
 <!DOCTYPE html>
 	<html>
@@ -58,7 +78,7 @@ try {
           }
   }
   if ($result->rowCount() > 0) {
-	echo "regenerating QR code";
+	echo "<strong>Regenerating QR code</strong>";
   } else {
         echo "<h1>No matches found for your search, please try again</h1>";
   }
@@ -83,6 +103,25 @@ try {
 		}
         $space_cmd = str_replace(' ','%20', $cmd);
         $newline_cmd = str_replace('\n','%0A',$space_cmd);
+	if (!isset($foreground_color)) {
+		if (isset($_POST["foreground_color"])) {
+			$foreground_color = $_POST["foreground_color"];
+		} else if (isset($_SESSION["foreground_color"])) {
+			$foreground_color = $_SESSION["foreground_color"];
+		} else {
+			$foreground_color = "000000";
+		}
+	}
+	if (!isset($background_color)) {
+		if (isset($_POST["background_color"])) {
+			$background_color = $_POST["background_color"];
+		} else if (isset($_SESSION["background_color"])) {
+			$background_color = $_SESSION["background_color"];
+		} else {
+			$background_color = "FFFFFF";
+		}
+	}
+
         $final_cmd = "echo \"$newline_cmd\" | qrencode --foreground=$foreground_color --background=$background_color -o - | base64";
         $qr_result = shell_exec("$final_cmd 2>&1");
         echo "\n\n<br><br>\n";

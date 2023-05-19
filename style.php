@@ -29,6 +29,20 @@ border-color: #FFFFFF;
 border: white;
 }
 
+.button1 {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
 .button {
   background-color: #4CAF50;
   border: none;
@@ -87,7 +101,7 @@ input[type=text],input[type=number], select {
 }
 
 input[type=submit] {
-  width: 30%;
+  width: 50%;
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -95,6 +109,29 @@ input[type=submit] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+input[type=submit]#smallbutton::before {
+  content: "X";
+  display: inline-block;
+  font-color: black;
+}
+input[type=submit]#smallbutton {
+  background-color: #4CAF50;
+  content: "X";
+  color: white;
+  padding: 0px 0px;
+  margin: 1px 0;
+  font-size: 12px;
+  height: 20px;
+  border: none;
+  border-radius: 4px;
+  clear: left;
+  cursor: pointer;
+  float: left;
+  #width: 100px; // only for IE8
+  min-width: 100px;
+  width: 200px;
+  max-width: 100%;
 }
 
 input[type=submit]:hover {
@@ -111,6 +148,9 @@ body {
 background-color: black;
 text-align:center;
 color: white;
+//overflow: auto;
+position: relative;
+
 }
 
 .FormElement {
@@ -123,6 +163,19 @@ color: white;
 .FormElement:focus {
     outline:none;
 }
+
+#pages {
+/*position in center*/
+text-align: center;
+display: block;
+width: 100%;
+margin-bottom: 10px;
+bottom: 10;
+clear: right;
+//position: absolute;
+height: 100%;
+}
+
 #floater {
     position: absolute;
     top: 100px;
@@ -149,12 +202,16 @@ color: white;
  
 #float-left {
     float:left;
-    width:50%;
+    width:70%;
 }
  
 #float-right {
     float:right;
-    width:50%;
+    width:70%;
+}
+#float-center{
+    float:center;
+    width:70%;
 }
 table, th, td {
   border: 1px solid white;
@@ -297,4 +354,75 @@ box-sizing: border-box;
   transition: all 0.3s;
   -webkit-transition: all 0.3s;
   cursor: none;
+}
+img.effectfront {
+  border: none;
+  margin: 0 auto;
+}
+img.effectfront:hover {
+  -webkit-transform: scale(2.2);
+  -moz-transform: scale(2.2);
+  -o-transform: scale(2.2);
+  transform: scale(2.2);
+  transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  cursor: none;
+}
+/* The Close Button */
+.close1 {
+  color: #FFF;
+  /*color: #aaaaaa;*/
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close1:hover,
+.close1:focus {
+  /*color: #000;*/
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+form#sidebyside {
+ clear: right;
+ float: left;
+ /* with some space to the left of the second form */
+/* margin-right: 20px; */
+margin-left: -5%;
+margin-right: -5%;
+ width: 20%;
+ /*width: 100px; // only for IE8*/
+ max-width: 100%;
+}
+form#sidebyside1 {
+ float: right;
+ /* with some space to the left of the second form */
+margin-left: -10%;
+width: 20%;
+}
+form#rowsPerPage {
+float: right;
+#width: 15%;
+}
+form#smallbutton{
+float: left;
+clear: right;
+margin-left: 5px;
+/*width: 25%;*/
+/*width: 100px; // only for IE8*/
+margin-top: 7px;
+max-width: 100%;
+}
+.search_results {
+margin-right: 40%;
+#make it align to center of page
+}
+
+.tag-remove::before {
+  content: 'x'; // here is your X(cross) sign.
+  color: #fff;
+  font-weight: 300;
+  font-family: Arial, sans-serif;
 }

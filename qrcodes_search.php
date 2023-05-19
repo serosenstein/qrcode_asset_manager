@@ -4,7 +4,6 @@ $json = json_decode($str, true);
 foreach ($json as $field => $value) {
 	$$field = $value;
 }
-
 session_start();
 #see if we already have session variables
 if (sizeof($_SESSION) > 0) {
@@ -22,6 +21,45 @@ if (sizeof($_SESSION) > 0) {
 	$previouspage = $_SESSION['previouspage'];
 	$rowsPerPage = $_SESSION['rowsPerPage'];
 }
+#set post variables to equal the session variables if its set
+if (isset($_SESSION['device_id']) && $_POST["device_id"] == "") {
+	$_POST["device_id"] = $_SESSION['device_id'];
+}
+if (isset($_SESSION['device_name']) && $_POST["device_name"] == "") {
+	$_POST["device_name"] = $_SESSION['device_name'];
+}
+if (isset($_SESSION['device_details']) && $_POST["device_details"] == "") {
+	$_POST["device_details"] = $_SESSION['device_details'];
+}
+if (isset($_SESSION['quick_search']) && $_POST["quick_search"] == "") {
+	$_POST["quick_search"] = $_SESSION['quick_search'];
+}
+if (isset($_SESSION['page']) && $_POST["page"] == "") {
+	$_POST["page"] = $_SESSION['page'];
+}
+if (isset($_SESSION['rowsPerPage']) && $_POST["rowsPerPage"] == "") {
+	$_POST["rowsPerPage"] = $_SESSION['rowsPerPage'];
+}
+if (isset($_SESSION['total_count']) && $_POST["total_count"] == "") {
+	$_POST["total_count"] = $_SESSION['total_count'];
+}
+if (isset($_SESSION['offset']) && $_POST["offset"] == "") {
+	$_POST["offset"] = $_SESSION['offset'];
+}
+if (isset($_SESSION['lastpage']) && $_POST["lastpage"] == "") {
+	$_POST["lastpage"] = $_SESSION['lastpage'];
+}
+	
+if (isset($_SESSION['firstpage']) && $_POST["firstpage"] == "") {
+	$_POST["firstpage"] = $_SESSION['firstpage'];
+}
+if (isset($_SESSION['nextpage']) && $_POST["nextpage"] == "") {
+	$_POST["nextpage"] = $_SESSION['nextpage'];
+}
+if (isset($_SESSION['previouspage']) && $_POST["previouspage"] == "") {
+	$_POST["previouspage"] = $_SESSION['previouspage'];
+}
+
 if(isset($_POST['clear_search'])){
 	session_unset();
 	session_start();
@@ -120,6 +158,20 @@ print <<< EOD
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <script src="floater.js"></script>
 <link rel="stylesheet" href="style.php" media="screen">
+<script>
+function unset_criteria(criteria){
+      $.ajax({
+           type: "POST",
+           url: "./qrcodes_search.php",
+           data:{criteria:""},
+           success:function(html) {
+             alert(html);
+           }
+
+      });
+ }
+
+</script>
 <ul>
   <li><a href="index.php">Home</a></li>
   <li><a href="config.php">Settings</a></li>
@@ -131,9 +183,9 @@ print <<< EOD
 														                                      </form>
 
 </ul>
-<center>
 EOD;
 $c = "1";
+$SEARCH_CRITERIA = "";
 $CLAUSE = "select * from qrcodes where ";
 $COUNT_CLAUSE = "select count(*) from qrcodes where ";
 #if (isset($_POST["quick_search"]))
@@ -150,14 +202,6 @@ if (isset($_POST["quick_search"]) || isset($_SESSION["quick_search"]) && ( !isse
 	}
 } else {
 	$quick_search = "";
-}
-if (isset($_POST["device_id"]) && $_POST["device_id"] != "")
-{
-	$device_id = $_POST["device_id"];
-	if ($device_id != "" ){
-		$CLAUSE .= "device_id = '$device_id' AND ";
-		$COUNT_CLAUSE .= "device_id = '$device_id' AND ";
-	}
 }
 if (isset($_GET["device_id"]) && !isset($_POST["device_id"]))
 {
@@ -187,9 +231,13 @@ if (isset($_POST["device_details"]) && $_POST["device_details"] != "")
 	global $device_details;
 	$CLAUSE .= " AND device_details like '%$device_details%' ";
 	$COUNT_CLAUSE .= " AND device_details like '%$device_details%' ";
-} else {
-	$device_details = "";
+	}
+			
+if($_POST["device_id"] !== "" || $_POST["device_id"] !== ""){
+		$CLAUSE .= " AND device_id = '$device_id'";
+		$COUNT_CLAUSE .= " AND device_id = '$device_id'";
 }
+
 if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_search == "" && $quick_search == "") {
 	echo "Display search results for all";
 	$CLAUSE = "select * from qrcodes";
@@ -211,32 +259,60 @@ if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_s
 		#$device_details = "N/A";
 		$_SESSION['device_details'] = "";
 	}
-	if($device_id != "") {
-		$SEARCH_CRITERIA .= "Device ID: <strong>$device_id</strong><br>\n";
-	}
-	if($device_name != "") {
-		$SEARCH_CRITERIA .= "Device Name: <strong>$device_name</strong><br>\n";
-	}
-	if($device_details != "") {
-		$SEARCH_CRITERIA .= "Device Details: <strong>$device_details</strong><br>\n";
-	}
-	if($quick_search != "") {
-		$SEARCH_CRITERIA .= "Quick Search (wildcard): <strong>$quick_search</strong><br>\n";
-	}
 
-	echo "Chosen search critera for this search:<br>\n";
-	echo $SEARCH_CRITERIA;
+	echo "<div id=\"search_results\">\n";
+	echo "</div>\n";
 }
+#if post contains clear_device_name, clear_device_id, clear_device_details, or clear_quick_search, clear the session variables
+if (isset($_POST["clear_device_name"])) {
+	unset($_SESSION['device_name']);
+	unset($_POST['device_name']);
+	unset($device_name);
+	unset($_POST['clear_device_name']);
+	header("refresh: 0;");
+}
+if (isset($_POST["clear_device_id"])) {
+	unset($_SESSION['device_id']);
+	unset($_POST['device_id']);
+	unset($device_id);
+	unset($_POST['clear_device_id']);
+	header("refresh: 0;");
+}
+if (isset($_POST["clear_device_details"])) {
+	unset($_SESSION['device_details']);
+	unset($_POST['device_details']);
+	unset($device_details);
+	unset($_POST['clear_device_details']);
+	header("refresh: 0;");
+}
+if (isset($_POST["clear_quick_search"])) {
+	unset($_SESSION['quick_search']);
+	unset($_POST['quick_search']);
+	unset($quick_search);
+	unset($_POST['clear_quick_search']);
+	header("refresh: 0;");
+}
+
 //button to clear all search criteria
-echo "<form action='qrcodes_search.php' style=\"width:40%\" method='post'>\n";
-echo "<input type='submit' value='Clear Search' name='clear_search'>\n";
+echo "<form action='qrcodes_search.php' id=\"sidebyside\" method='post'>\n";
+echo "<input type='submit' value='Clear All' name='clear_search'>\n";
 echo "</form>\n";
 $CLAUSE .= " order by device_id asc";
 $COUNT_CLAUSE .= " order by device_id asc";
+#check to see if $CLAUSE contains "where AND" and if so, replace it with "where"
 echo "<html>\n";
 echo "<link rel=\"stylesheet\" href=\"style.php\" media=\"screen\">\n";
 echo "<div id=\"floater\"><a href=\"#bottom\"><img src=\"arrow_down.png\"></img></a></div>\n";
 echo "<body><title>QR Code Asset Search</title>";
+$setArray = array("device_id","device_name","device_details","quick_search");
+foreach ($setArray as $key => $value) {
+	if ($value!= "" && $$value != "") {
+		echo "<form id=\"smallbutton\" action=\"qrcodes_search.php\" method=\"post\">\n";
+		echo "<input type=\"submit\" id=\"smallbutton\" value=\"X $value:{$$value}\" name=\"clear_$value\" onclick=\"unset_criteria('$value')\">\n";
+		echo "</form>   \n";
+
+	}
+}
 if (isset($_GET['page'])) {
 	$page = $_GET['page'];
 } else {
@@ -247,13 +323,16 @@ try {
   // set the PDO error mode to exception
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   //create a way for user to select $rowsPerPage from a drop down on this page
+#check to see if $CLAUSE contains "where AND" and if so, replace it with "where"
 
+$CLAUSE = preg_replace('/where  AND/','where', $CLAUSE);
+$COUNT_CLAUSE = preg_replace('/where  AND/','where', $COUNT_CLAUSE);
 $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
 	$total_count = $result->rowCount();
-	echo "<br><strong>Total results: $total_count</strong><br>";
-	echo "<strong>Results per page: </strong><form action=\"qrcodes_search.php\" style=\"width:30%;\" method=\"post\">";
-	echo "<select id=\"rowsPerPage\" name=\"rowsPerPage\" onchange=\"this.form.submit()\">";
+	echo "<form action=\"qrcodes_search.php\" style=\"margin-top:-20px;width:30%;margin-right:-10%;\" id=\"sidebyside1\" method=\"post\">";
+	echo "<br><strong>$total_count</strong> Total Results<br>";
+	echo "<select id=\"rowsPerPage\"  name=\"rowsPerPage\" onchange=\"this.form.submit()\">";
 	echo "<option value=\"$rowsPerPage\">$rowsPerPage (current)</option>";
 	echo "<option value=\"5\">5</option>";
 	echo "<option value=\"10\">10</option>";
@@ -281,21 +360,24 @@ $result = $conn->query($CLAUSE);
 	$number_of_rows = $result->rowCount();
         $totalPages = ceil($result->rowCount() / $rowsPerPage);
 	$CLAUSE .= $limit;
+	#check to see if $CLAUSE contains "where AND" and if so, replace it with "where"
+	
+	if (strpos("where AND", $CLAUSE) !== false) {
+		$CLAUSE = str_replace("where AND", "where", $CLAUSE);
+	}
 	$result = $conn->query($CLAUSE);
             if ($totalPages > 1) {
-                echo "<div id=\"pagination\">";
                 for ($i = 1; $i <= $totalPages; $i++) {
                     if ($i == $page) {
 		        
                         #echo "Current Page: <a href=\"qrcodes_search.php?page=$i\"><b>$i</b></a>";
-                        echo "Current Page: <strong>$i</strong>";
-                        echo "<div class=\"pagination\">";
-			if ($page != $firstpage) {
-			    echo "<a href=\"qrcodes_search.php?page=$firstpage\"><<</a> ";
-			    echo "<a href=\"qrcodes_search.php?page=$previouspage\">Previous</a> ";
-			    echo "<a href=\"qrcodes_search.php?page=$totalPages\">>></a> ";
-			    echo "<br>";
-			}
+                        echo "<div id=\"pages\">Page: <strong>$i</strong><br>";
+			#if ($page != $firstpage) {
+			#    echo "<a href=\"qrcodes_search.php?page=$firstpage\"><<</a> ";
+			#    echo "<a href=\"qrcodes_search.php?page=$previouspage\">Previous</a> ";
+			#    echo "<a href=\"qrcodes_search.php?page=$totalPages\">>></a> ";
+			#    echo "<br>";
+			#}
 			
                         for ($i = 1; $i <= $totalPages; $i++) {
                             echo "<a href='qrcodes_search.php?page=" .
@@ -304,7 +386,7 @@ $result = $conn->query($CLAUSE);
                                 $i .
                                 "</a> ";
                         }
-                        echo "</div>";
+                        echo "</div></div>";
                     }
                 }
             }
@@ -325,19 +407,16 @@ $result = $conn->query($CLAUSE);
 		echo "<td><center>\n$new_qrcode_action</center></td>";
 		echo "<td><center><input type=\"radio\" name=device_id[] value=\"$new_device_id\"> Delete/Edit</center></td>";
 		echo "</tr>";
-		echo '</div>';
   }
 	  	echo "</table>\n";
 		echo "<input type=\"submit\" class=\"button\" name=\"update_button\" formaction=\"qrcodes_select.php\" value=\"Update\" />";
 		echo "   <input type=\"submit\" class=\"button\" name=\"delete_button\" formaction=\"qrcodes_select.php\" value=\"Delete\" />\n<br><br>";
             if ($totalPages > 1) {
-                echo "<div id=\"pagination\">";
                 for ($i = 1; $i <= $totalPages; $i++) {
                     if ($i == $page) {
 		        
                         #echo "Current Page: <a href=\"qrcodes_search.php?page=$i\"><b>$i</b></a>";
-                        echo "Current Page: <strong>$i</strong>";
-                        echo "<div class=\"pagination\">";
+                        echo "Page: <strong>$i</strong><br>";
 			if ($page != $firstpage) {
 			    echo "<a href=\"qrcodes_search.php?page=$firstpage\"><<</a> ";
 			    echo "<a href=\"qrcodes_search.php?page=$previouspage\">Previous</a> ";
@@ -361,12 +440,18 @@ $result = $conn->query($CLAUSE);
 	echo "<h1>No matches found for your search, please try again</h1>";
   }
 } catch(PDOException $e) {
-  echo $sql . "<br>" . $e->getMessage();
+  echo $CLAUSE . "<br>" . $e->getMessage();
 }
+echo "<br><br>";
 print <<<EOD
-		<div class="section" id="labelmenu" style="display:block">
-		<!--<input type="checkbox" id="all">Select all-->
 		<script src="toggle.js"></script>
+  		<a href="#" id="labbtn" class="button1">Label Menu</a>
+		
+		<br><br><br>
+		<div id="labelmenu" class="modal" style="display:hidden">
+		<div class="modal-content">
+                <span class="close1">&times;</span>
+		<br>
 		<h3>If no "Generate Label" boxes are selected, all labels will be printed</h3>
 		Template Name<br><select class="template" name="template">
 		    <option value="94103">94103</option>
@@ -378,10 +463,14 @@ print <<<EOD
 		    <option value="8600">8600</option>
 		    <option value="L7163">L7163</option>
 		    <option value="3422">3422</option>
-		</select><br>
+		</select><br><br>
 		Number of blank placeholders you want to have at beginning of labels (left to right, top to bottom), Default is 0<br><input type="text" name="skip_number" placeholder="Optional, e.g. 4" value=""><br>
 		<input type="submit" name="print" class="button" formaction="print_label.php" value="Generate Labels" />
-		</form></div><div id="bottom"></div>
+		<br><br><br>
+		</div>
+		</div>
+		</form>
+		<div id="bottom"></div>
         <div id="myModal" class="modal">
 
                   <!-- Modal content -->
@@ -402,8 +491,8 @@ print <<<EOD
 
 				              </div>
         <script>
-                // Get the modal
-                 var modal = document.getElementById("myModal");
+// Get the modal
+var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
@@ -428,7 +517,35 @@ window.onclick = function(event) {
                     }
 }
         </script>
+        <script>
+// Get the modal
+var modal1 = document.getElementById("labelmenu");
+
+// Get the button that opens the modal
+var labbtn = document.getElementById("labbtn");
+
+// Get the <span> element that closes the modal
+var span1 = document.getElementsByClassName("close1")[0];
+
+// When the user clicks the button, open the modal
+labbtn.onclick = function() {
+          modal1.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span1.onclick = function() {
+          modal1.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+          if (event.target == modal1) {
+                      modal1.style.display = "none";
+                    }
+}
+        </script>
 EOD;
+#print out all of the session variables and then print out all of the POST variables
 $conn = null;
-echo "</center></body></html>\n";
+echo "</body></html>\n";
 ?>
