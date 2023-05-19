@@ -173,7 +173,7 @@ function unset_criteria(criteria){
 
 </script>
 <ul>
-  <li><a href="index.php">Home</a></li>
+  <li><a href="add_device.php">Add Device</a></li>
   <li><a href="config.php">Settings</a></li>
   <li><a href="qrcodes_tags.php">Tag Colors</a></li>
   <li><a href="#" id="myBtn">Advanced Search</a></li>
