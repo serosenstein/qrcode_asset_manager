@@ -81,7 +81,7 @@ window.onclick = function(event) {
 	</script>
 	</head>
 	<body>
-			<h2>Add a new value to DB and display QR codes<br>Both fields required</h2>
+			<h2>Add a new device to DB and display QR codes<br>Both fields required</h2>
 		<form action="qrcodes_add.php" method="post">
 			Device Name<br><input type="text" name="device_name" placeholder="Device name" maxlength="255" required><br>
 			<!--Device Details: <input type="text" name="device_details"><br>-->
@@ -134,7 +134,7 @@ window.onclick = function(event) {
 
 			?>
 			<br>
-			<input type="submit" class="button" value="Add new value">
+			<input type="submit" class="button" value="Add new device">
 		</form>
 	<script>
 

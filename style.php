@@ -98,7 +98,10 @@ input[type=text],input[type=number], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-
+.spacer {
+  width: 50%;
+  margin-top: -10px;
+}
 input[type=submit] {
   width: 50%;
   background-color: #4CAF50;
@@ -162,7 +165,15 @@ position: relative;
 .FormElement:focus {
     outline:none;
 }
+#pagenumbers {
+/*position the whole div to be in the center of the rendered page*/
+text-align: center;
+display: block;
+clear: both;
+margin-bottom: 10px;
+bottom: 10;
 
+}
 #pages {
 /*position in center*/
 text-align: center;

@@ -239,7 +239,7 @@ if($_POST["device_id"] !== "" || $_POST["device_id"] !== ""){
 }
 
 if ( $device_name == "" && $device_id == "" && $device_details == "" && $quick_search == "" && $quick_search == "") {
-	echo "Display search results for all";
+	#echo "Display search results for all";
 	$CLAUSE = "select * from qrcodes";
 	$COUNT_CLAUSE = "select * from qrcodes";
 } else {
@@ -295,7 +295,21 @@ if (isset($_POST["clear_quick_search"])) {
 
 //button to clear all search criteria
 echo "<form action='qrcodes_search.php' id=\"sidebyside\" method='post'>\n";
+if ($device_name != "") {
+	#echo "<input type='submit' value='Clear Device Name' name='clear_device_name'>\n";
 echo "<input type='submit' value='Clear All' name='clear_search'>\n";
+} else if ($device_id != "") {
+	#echo "<input type='submit' value='Clear Device ID' name='clear_device_id'>\n";
+echo "<input type='submit' value='Clear All' name='clear_search'>\n";
+} else if ($device_details != "") {
+	#echo "<input type='submit' value='Clear Device Details' name='clear_device_details'>\n";
+echo "<input type='submit' value='Clear All' name='clear_search'>\n";
+} else if ($quick_search != "") {
+	#echo "<input type='submit' value='Clear Quick Search' name='clear_quick_search'>\n";
+echo "<input type='submit' value='Clear All' name='clear_search'>\n";
+} else {
+	echo "<div id=\"spacer\">Showing all devices</div>\n";
+}
 echo "</form>\n";
 $CLAUSE .= " order by device_id asc";
 $COUNT_CLAUSE .= " order by device_id asc";
@@ -330,7 +344,7 @@ $COUNT_CLAUSE = preg_replace('/where  AND/','where', $COUNT_CLAUSE);
 $result = $conn->query($CLAUSE);
   if ($result->rowCount() > 0) {
 	$total_count = $result->rowCount();
-	echo "<form action=\"qrcodes_search.php\" style=\"margin-top:-20px;width:30%;margin-right:-10%;\" id=\"sidebyside1\" method=\"post\">";
+	echo "<form action=\"qrcodes_search.php\" style=\"margin-top:-15px;width:30%;margin-right:-5%;\" id=\"sidebyside1\" method=\"post\">";
 	echo "<br><strong>$total_count</strong> Total Results<br>";
 	echo "<select id=\"rowsPerPage\"  name=\"rowsPerPage\" onchange=\"this.form.submit()\">";
 	echo "<option value=\"$rowsPerPage\">$rowsPerPage (current)</option>";
@@ -372,7 +386,7 @@ $result = $conn->query($CLAUSE);
 		        
                         #echo "<div id=\"pages\">Page: <strong>$i</strong><br>";
 			    echo "<br>";
-			
+		        echo "<div id=\"pagenumbers\">";	
                         for ($i = 1; $i <= $totalPages; $i++) {
 				if ($i == $page) {
 					$a_class = "current_page";
@@ -385,7 +399,7 @@ $result = $conn->query($CLAUSE);
                                 $i .
                                 "</a> ";
                         }
-                        echo "</div></div>";
+                        echo "</div></div></div>";
                     }
                 }
             }
