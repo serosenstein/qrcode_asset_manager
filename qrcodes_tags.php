@@ -104,6 +104,30 @@ if (isset($_POST["action"])) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/x-icon" href="favicon.ico">
         <ul>
+<style>
+.button {
+border-radius: 8px;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+ table-layout:fixed;
+ text-align: center;
+ align: center;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+  font-size: 20px;
+}
+
+//tr:nth-child(even) {
+ // background-color: #dddddd;
+//}
+</style>
           <li><a href="add_device.php">Add Device</a></li>
             <li><a href="config.php">Settings</a></li>
 		<li><a href="qrcodes_tags.php">Tag Colors</a></li>
@@ -180,27 +204,36 @@ window.onclick = function(event) {
 }
         </script>
 <?php else : ?>
+	<table>
+	<tr><th>Name</th><th>Foreground</th><th>Background</th><th>Default</th><th>Update</th><th>Delete</th></tr>
         <?php foreach ($templates as $tag => $template) : ?>
-            <li class="templatedisplay">
-                Name: <strong><?= $tag ?></strong>
+	    <!--<li class="templatedisplay">-->
+		<tr><td><strong>
+		<?php echo $tag; ?></strong></td>
                 <form method="post" class="templatedisplay" style="display: inline;">
                     <input type="hidden" name="tag" value="<?= $tag ?>">
+		
                     <input type="hidden" name="action" value="update">
-                    <label for="foreground">Foreground color:</label>
+			<td>
                     <input type="color" id="foreground" name="foreground" value="<?= $template["foreground"] ?>" required>
-                    <label for="background">Background color:</label>
+			</td><td>
                     <input type="color" id="background" name="background" value="<?= $template["background"] ?>" required>
-                    <label for="default">Default:</label>
+			</td><td>
                     <input type="radio" id="default" name="default" <?= $template["default"] ? "checked" : "" ?>>
+		</td><td>
                     <button type="submit">Update</button>
                 </form>
                 <form method="post" class="templatedisplay" style="display: inline;">
                     <input type="hidden" name="tag" value="<?= $tag ?>">
                     <input type="hidden" name="action" value="delete">
+			<td>
                     <button type="submit" onclick="return confirm('Are you sure you want to delete this template?')">Delete</button>
+</td>
                 </form>
-            </li>
+			</tr>
+            <!--</li>-->
         <?php endforeach; ?>
+			</table>
         <div id="myModal" class="modal">
                   <!-- Modal content -->
                   <div class="modal-content">

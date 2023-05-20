@@ -9,6 +9,15 @@ $font_family = 'Arial, Helvetica, sans-serif';
 $font_size = '0.7em';
 $border = '1px solid #FFFFFF';
 ?>
+fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+
+}
 #spacer {
   margin-top: 10px;
   clear: right;
@@ -114,7 +123,7 @@ input[type=submit] {
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
 }
 input[type=submit]#smallbutton::before {
