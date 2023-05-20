@@ -6,7 +6,8 @@ header("Content-type: text/css");
 
 
 $font_family = 'Arial, Helvetica, sans-serif';
-$font_size = '0.7em';
+#$font_size = '0.7em';
+$font_size = '20px';
 $border = '1px solid #FFFFFF';
 ?>
 fa {
@@ -166,6 +167,7 @@ text-align:center;
 color: white;
 //overflow: auto;
 position: relative;
+font-size: 20px;
 
 }
 
