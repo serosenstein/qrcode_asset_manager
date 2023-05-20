@@ -126,14 +126,14 @@ try {
                                    echo "<p>No color profiles exist yet, but you can <a href=\"qrcodes_tags.php\">create one here</a> </p>";
                         } else
                         {
+			echo "<label class=\"templatedisplay\" for=\"colors\"><strong>Choose a color profile</strong></label><br>";
+			echo "<select name=\"colors\" id=\"colorchooser\">";
                                         foreach ($templates as $tag => $template) {
                                                 $is_default = $template["default"];
                                                 $default_tag = $tag;
                                                 $default_fg = $template["foreground"];
                                                 $default_bg = $template["background"];
                                                 if ($is_default) {
-                                                echo "<label class=\"templatedisplay\" for=\"colors\"><strong>Choose a color profile</strong></label><br>";
-                                                echo "<select name=\"colors\" id=\"colorchooser\">";
                                                 echo "<option value=$tag|$default_fg|$default_bg foreground=\"$default_fg\" background=\"$default_bg\">$tag (default)</option>\n";
                                                 }
                                                 echo "<br>            <br>\n";
